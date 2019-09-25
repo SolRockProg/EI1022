@@ -28,5 +28,5 @@ def create_labyrinth(rows, cols):
 if __name__=='__main__':
     random.seed(42)
     lab= create_labyrinth(40, 60)
-    viewer= LabyrinthViewer(lab, canvas_width=640, canvas_height=4680, margin=10)
+    viewer= LabyrinthViewer(lab, canvas_width=640, canvas_height=480, margin=10)
     viewer.run()

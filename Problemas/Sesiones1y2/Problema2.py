@@ -4,20 +4,20 @@ from algoritmia.datastructures.digraphs import UndirectedGraph
 from Problemas.Sesiones1y2.Laberinto import create_labyrinth
 
 
-def path (g, source ,target):
+def path(g, source ,target) -> list:
     aristas=DFS(g, source)
     camino=backpointer(aristas, target)
     return camino
 
-def backpointer(aristas, target):
-    dic={v:u for (u,v) in aristas}
-    v=target
+def backpointer(aristas: list, target: tuple) -> list:
+    dic = {v: u for (u, v) in aristas}
     camino=[]
-    camino.append(v)
-    while v != dic[v]:
-        v=dic[v]
-        camino.append(v)
-    return camino.reverse()
+    camino.append(target)
+    while target != dic[target]:
+        target = dic[target]
+        camino.append(target)
+    camino.reverse()
+    return camino
 
 def DFS(g, v_inicial):
     def recursivo(u, v):
@@ -37,6 +37,8 @@ if __name__ =="__main__":
     target=(rows-1, cols-1)
     source=(0,0)
     random.seed(42)
-    lab = create_labyrinth(40, 60)
-    viewer = LabyrinthViewer(lab, canvas_width=640, canvas_height=4680, margin=10)
+    lab = create_labyrinth(rows, cols)
+    solucion=path(lab, source, target)
+    viewer = LabyrinthViewer(lab, canvas_width=640, canvas_height=480, margin=10)
+    viewer.add_path(solucion)
     viewer.run()
