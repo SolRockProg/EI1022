@@ -36,5 +36,6 @@ def backpointer(aristas, target):
     return camino
 
 
+
 recorrido_aristas = dijkstra(Mallorca, km, 'Andratx', 'Manacor')
 print(backpointer(recorrido_aristas, 'Manacor'))
