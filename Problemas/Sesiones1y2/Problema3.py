@@ -3,7 +3,7 @@ from Utils.labyrinthviewer import LabyrinthViewer
 from algoritmia.datastructures.digraphs import UndirectedGraph
 from Problemas.Sesiones1y2.Laberinto import create_labyrinth
 from algoritmia.datastructures.queues import Fifo
-from Problemas.Sesiones1y2.Problema2 import backpointer
+from Problemas.Sesiones1y2.Problema2 import backpointer, path
 
 
 # Camino más corto entre dos celdas de un laberinto modificado
@@ -32,13 +32,15 @@ def anchura(g: UndirectedGraph, source: tuple) -> list:
 
 
 if __name__ == "__main__":
-    rows = 100
-    cols = 100
-    target = (5, 24)
-    source = (3, 0)
+    rows = 80
+    cols = 140
+    target = (79, 139)
+    source = (0, 0)
     random.seed(42)
-    lab = create_labyrinth(rows, cols, n=20)
+    lab = create_labyrinth(rows, cols, n=1000)
     solucion = shortest_path(lab, source, target)
+    solucion2 = path(lab, source, target)
     viewer = LabyrinthViewer(lab, canvas_width=2560, canvas_height=1080, margin=10)
-    viewer.add_path(solucion)
+    viewer.add_path(solucion, "red", -2)
+    viewer.add_path(solucion2, "blue", 2)
     viewer.run()

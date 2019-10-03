@@ -15,7 +15,6 @@ def path(g, source, target) -> list:
 def backpointer(aristas: list, target: tuple) -> list:
     dic = {v: u for (u, v) in aristas}
     camino = []
-    camino.append(target)
     while target != dic[target]:
         target = dic[target]
         camino.append(target)
