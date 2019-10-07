@@ -11,19 +11,16 @@ Edge = Tuple[Vertex, Vertex]
 
 
 
-def read_vertex(svertex: str) -> Vertex:
-    lista = svertex.split()
-    print(lista)
-    vertex = (int(i) for i in lista)
-    return vertex
+def read_tuple(svertex: str) -> Vertex:
+    return (int(i) for i in svertex.split())
 
 def load_laberinth(filename: str) -> Tuple[Vertex, Vertex, int, int, UndirectedGraph]:
     with open(filename, 'r') as fichero:
-        tesoro= read_vertex(fichero.readline())
-        bomba= read_vertex(fichero.readline())
-        rows, cols = read_vertex(fichero.readline())
+        tesoro= read_tuple(fichero.readline())
+        bomba= read_tuple(fichero.readline())
+        rows, cols = read_tuple(fichero.readline())
         vertices = [(fil, col) for fil in range(int(rows)) for col in range(int(cols))]
-        
+
 
 
 if __name__ == '__main__':
