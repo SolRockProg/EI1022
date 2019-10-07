@@ -1,0 +1,33 @@
+8 38
+18 9
+30 50
+wn,sn,sn,n,ne,swn,ne,swn,n,sne,wn,n,sn,sne,wne,wne,wne,wne,wne,swn,sn,n,ne,swn,n,sn,sn,sn,ne,wn,ne,wn,sne,wn,sne,swn,ne,wn,ne,wne,swn,ne,swn,sn,ne,wn,sn,sne,wn,ne
+sw,n,sne,swe,we,swn,e,swn,,sne,we,swe,swn,n,,se,sw,s,s,ne,swn,se,w,ne,swe,wn,sn,sne,sw,se,we,w,sne,w,sn,n,e,we,swe,we,swn,s,ne,wn,e,we,wn,sne,swe,we
+swn,s,sne,swn,,ne,sw,n,s,sn,s,n,sn,se,sw,n,sn,sn,ne,w,ne,swn,e,w,sn,,sn,sn,sn,sn,s,s,ne,w,sn,s,se,w,ne,we,swn,sn,,s,s,e,w,sn,n,e
+swn,n,n,sn,se,sw,sn,se,wn,sn,sn,se,wn,sn,sn,,sne,wn,s,e,w,sne,w,se,swn,s,sne,wne,swn,n,sn,ne,swe,sw,n,ne,swn,e,sw,s,n,sn,se,swn,ne,sw,,sne,we,we
+swn,e,we,swn,n,sn,sne,wne,w,sn,sn,sne,swe,swn,ne,we,wn,,ne,swe,swe,wne,sw,ne,wn,ne,wn,s,ne,sw,sne,w,ne,wne,we,sw,sn,e,swn,n,s,ne,swn,ne,we,wne,we,swn,se,we
+wne,swe,swe,wn,,sn,sn,,se,wne,wn,sn,ne,wn,se,swe,sw,se,we,swn,n,s,sne,we,we,swe,w,sne,we,wn,sne,swe,we,we,w,sn,sne,sw,sne,we,wne,we,wn,se,we,we,sw,sn,ne,swe
+sw,n,n,e,we,wn,ne,we,swn,s,e,wne,w,,ne,wne,wne,wne,we,wn,e,swn,n,se,we,wne,swe,wn,e,w,sne,wn,se,w,se,wn,ne,wn,ne,swe,w,se,w,sn,s,s,n,sne,we,wne
+wn,se,sw,e,swe,swe,w,se,wne,wne,swe,we,we,w,e,w,s,e,we,swe,we,wn,s,sn,e,we,wne,swe,w,e,wne,w,sn,,ne,swe,we,swe,w,sn,se,swn,e,wn,sn,sne,swe,swn,e,we
+sw,sn,ne,swe,swn,sn,,ne,sw,e,wn,,e,swe,swe,w,ne,sw,s,sne,sw,se,wn,sn,se,we,sw,ne,swe,w,,se,wne,we,sw,ne,we,wne,sw,n,sne,swn,,se,wne,swn,sn,n,s,se
+wne,wne,sw,sne,wn,n,,se,wn,s,se,swe,we,wne,swn,e,sw,sn,sne,wn,sne,wn,s,ne,swn,s,n,se,swn,se,sw,sn,e,sw,ne,sw,s,s,ne,sw,sne,swn,s,ne,w,sn,sn,s,sne,wne
+sw,,sne,wn,s,se,sw,sne,sw,n,ne,wn,e,sw,ne,sw,sne,wne,wn,se,swn,s,sne,w,sne,wn,s,ne,wne,swn,sn,sn,,ne,sw,sn,ne,wne,w,sne,swn,ne,wne,we,swe,wn,sne,wne,wn,se
+wne,we,wne,w,ne,wne,wne,wn,n,se,we,sw,s,n,s,sne,swn,,se,wne,swn,sn,ne,we,wn,se,wne,sw,,n,n,sn,e,swe,wne,wn,s,e,w,n,sn,e,sw,e,swn,s,sn,,s,ne
+sw,,,se,swe,we,w,e,we,swn,e,wne,swn,e,swn,n,sne,w,ne,we,swn,sn,e,w,e,wn,se,wn,e,swe,swe,wne,we,swn,s,,ne,swe,we,sw,n,e,swn,s,sn,n,n,se,wn,e
+wn,se,w,sn,ne,we,swe,we,we,wne,swe,w,sne,w,sn,se,wne,swe,sw,s,sn,sn,s,e,w,se,swn,se,sw,sn,sne,sw,se,wne,wne,swe,sw,sne,we,wn,se,sw,sne,wne,wne,w,e,wn,se,swe
+swe,swn,e,wn,,,sn,se,we,w,n,s,ne,swe,swn,n,se,wn,n,n,ne,wne,wne,swe,sw,n,sn,sn,sne,swn,ne,wn,sn,s,e,swn,ne,swn,e,swe,swn,ne,wne,w,s,se,we,swe,wne,wne
+wn,sn,e,swe,w,e,wn,sn,e,swe,we,wne,sw,ne,wn,se,swn,,s,e,swe,we,w,sn,n,e,wne,wne,wn,ne,sw,,sn,sne,sw,sn,,sn,s,n,sn,s,se,w,ne,wne,swe,swn,,e
+we,wne,w,sne,swe,we,sw,ne,we,wn,,se,wn,se,we,wne,wne,w,ne,sw,sne,sw,,sne,we,w,s,e,we,we,swn,s,n,sn,ne,swn,s,sne,wne,w,sne,swn,n,s,e,we,swn,ne,we,we
+we,we,sw,sne,swn,e,wne,swe,we,swe,sw,sne,we,wne,we,w,s,e,swe,wn,n,sne,we,wne,swe,w,sne,sw,se,swe,wn,sn,e,wn,,n,sn,n,se,sw,ne,wn,s,sne,we,we,wn,se,swe,we
+w,s,sne,wne,wne,we,we,wne,we,wne,wne,swn,s,s,e,we,wn,s,ne,sw,e,wn,se,w,n,,sne,swn,n,n,,ne,swe,swe,w,e,swn,se,wn,n,e,sw,ne,wne,sw,,se,wn,sn,se
+swe,swn,sn,e,sw,e,we,sw,e,sw,s,ne,wn,sn,s,se,we,wne,swe,wn,se,w,sne,we,sw,e,wne,swn,e,sw,se,sw,n,sne,swe,sw,sne,wn,e,we,sw,sne,w,se,swn,e,wn,se,wne,wne
+wn,n,sne,w,n,s,e,wne,swe,wn,sne,sw,e,wn,sn,sn,,se,wn,,n,e,wn,s,sne,swe,sw,n,se,wne,wne,wn,se,wne,swn,n,sn,se,we,we,wn,n,se,wne,wne,swe,w,n,s,se
+swe,sw,sn,se,sw,sne,sw,,sn,e,wn,sne,swe,we,wne,wn,se,wne,w,se,swe,swe,w,sn,ne,swn,sn,s,n,s,se,w,sne,we,wne,sw,sn,sne,we,we,w,e,swn,e,sw,ne,swe,we,swn,ne
+wn,sn,sn,sn,sn,sn,ne,we,wn,s,,sn,sn,se,we,w,ne,sw,s,ne,wn,sne,sw,ne,swe,swn,ne,swn,se,swn,ne,w,sne,w,e,wne,wne,swn,,,se,we,wn,e,wne,w,sne,w,n,se
+sw,sne,wne,wne,wn,n,s,se,swe,swn,e,wne,swn,ne,sw,e,w,sn,sn,s,,ne,wne,we,wne,swn,e,swn,ne,wne,sw,e,swn,e,sw,se,we,wn,,s,sn,s,se,w,,e,swn,e,we,wne
+wne,swn,e,sw,e,swe,swn,ne,wne,swn,,,sn,se,swn,se,w,sn,sn,ne,swe,swe,sw,s,s,sn,,sne,we,w,sne,we,swn,,sn,ne,w,e,swe,wn,ne,wne,wn,e,swe,w,sne,we,w,se
+we,wne,we,wn,s,n,ne,sw,,sn,e,sw,ne,wne,wn,sne,swe,swn,ne,w,ne,wne,swn,ne,swn,ne,sw,sne,we,we,wne,swe,wne,sw,ne,sw,se,we,swn,e,w,s,,se,swn,e,wn,se,sw,ne
+sw,e,sw,s,ne,swe,w,sne,w,ne,swe,swn,s,s,,n,sne,swn,,,e,sw,n,s,sn,s,sne,wne,we,sw,,n,se,wne,we,swn,ne,swe,wne,we,swe,swn,,sn,sne,we,w,sne,wn,se
+swn,,n,sn,e,wne,we,swn,s,se,wne,wn,sne,wn,se,we,wne,wn,se,swe,swe,wn,se,swn,sn,n,sne,we,sw,sn,e,w,sn,e,we,wne,w,sne,sw,se,wn,sn,e,wne,swn,s,e,wne,w,sne
+wne,we,we,swn,,e,we,swn,n,n,se,w,ne,w,sne,sw,e,swe,wn,ne,wne,sw,n,sne,wne,we,wne,sw,n,ne,swe,swe,swn,,s,,e,wne,wn,sn,,sn,se,w,n,sn,e,sw,s,ne
+sw,se,sw,sne,swe,swe,sw,sn,se,swe,swn,se,sw,s,sne,swn,s,sn,se,sw,s,sn,s,sn,s,s,se,swn,se,sw,sn,sn,sn,s,sn,se,swe,sw,se,swn,se,swn,sn,se,sw,sne,sw,sne,swn,se

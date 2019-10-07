@@ -22,7 +22,6 @@ def anchura(g: UndirectedGraph, source: tuple) -> list:
     visitados.add(source)
     while len(queue) > 0:
         u, v = queue.pop()
-        aristas.append((u, v))
         for suc in g.succs(v):
             if suc not in visitados:
                 visitados.add(suc)
