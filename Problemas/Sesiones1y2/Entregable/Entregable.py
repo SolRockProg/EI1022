@@ -1,5 +1,4 @@
 import random
-
 from algoritmia.datastructures.digraphs import UndirectedGraph
 from algoritmia.datastructures.queues import Fifo
 from typing import *
@@ -30,7 +29,7 @@ def load_labyrinth(filename: str) -> Tuple[Vertex, Vertex, int, int, UndirectedG
     return vertex1, vertex2, x, y, grafo
 
 
-def min_saltos(grafo: UndirectedGraph, ini: tuple):
+def min_saltos(grafo: UndirectedGraph, ini: tuple) -> Dict:
     matriz = {}
     queue = Fifo()
     seen = set()
@@ -46,13 +45,13 @@ def min_saltos(grafo: UndirectedGraph, ini: tuple):
     return matriz
 
 
-def shortest_path(g, source, target):
+def shortest_path(g: UndirectedGraph, source: Vertex, target: Vertex) -> List[Vertex]:
     aristas = BFS(g, source, target)
     camino = backpointer(aristas, target)
     return camino
 
 
-def BFS(g: UndirectedGraph, source: tuple, target: tuple) -> list:
+def BFS(g: UndirectedGraph, source: tuple, target: tuple) -> List[Edge]:
     visitados = set()
     aristas = []
     queue = Fifo()
@@ -97,7 +96,7 @@ def BFS_wallbraker(g: UndirectedGraph, source: tuple, distancias: dict) -> Edge:
     return wall
 
 
-def backpointer(aristas: list, target: tuple) -> list:
+def backpointer(aristas: list, target: tuple) -> List[Vertex]:
     dic = {v: u for (u, v) in aristas}
     camino = [target]
     while target != dic[target]:
@@ -107,7 +106,7 @@ def backpointer(aristas: list, target: tuple) -> list:
     return camino
 
 
-def screen_output(wallbraker, p1, p2):
+def screen_output(wallbraker: Edge, p1: List[Vertex], p2: List[Vertex]):
     print(wallbraker[0][0], wallbraker[0][1], wallbraker[1][0], wallbraker[1][1])
     print(len(p1))
     print(len(p2))
@@ -117,7 +116,7 @@ if __name__ == '__main__':
     if len(sys.argv) >= 2:
 
         # Lectura de fichero
-        lab = load_labyrinth("Ficheros/{}".format(sys.argv[1]))
+        lab = load_labyrinth(sys.argv[1])
         g = lab[4]
         origin = (0, 0)
         treasure = lab[0]
