@@ -1,18 +1,13 @@
 import random
 
-from algoritmia.datastructures.mergefindsets import MergeFindSet
 from algoritmia.datastructures.digraphs import UndirectedGraph
 from algoritmia.datastructures.queues import Fifo
 from typing import *
 import sys
 from Problemas.Sesiones1y2.LabyrinthViewer import LabyrinthViewer
 
-from math import sqrt
-
 Vertex = Tuple[int, int]
 Edge = Tuple[Vertex, Vertex]
-
-from datetime import datetime
 
 
 def load_labyrinth(filename: str) -> Tuple[Vertex, Vertex, int, int, UndirectedGraph]:
@@ -23,14 +18,15 @@ def load_labyrinth(filename: str) -> Tuple[Vertex, Vertex, int, int, UndirectedG
         vertex1 = separa_en_tupla(f.readline())
         vertex2 = separa_en_tupla(f.readline())
         x, y = separa_en_tupla(f.readline())
-        grafo = UndirectedGraph(V=[(u, v) for u in range(x) for v in range(y)])
+        aristas=[]
         for i in range(x):
             fila = f.readline().split(",")
             for j in range(y):
                 letras = [("w", 0, -1), ("e", 0, 1), ("s", 1, 0), ("n", -1, 0)]
                 for l, fi, co in letras:
                     if l not in fila[j]:
-                        grafo._add_edge(((i, j), (i + fi, j + co)))
+                        aristas.append(((i, j), (i + fi, j + co)))
+    grafo=UndirectedGraph(E=aristas)
     return vertex1, vertex2, x, y, grafo
 
 
@@ -85,6 +81,8 @@ def BFS_wallbraker(g: UndirectedGraph, source: tuple, distancias: dict) -> Edge:
     while len(queue) > 0:
         vertex, n = queue.pop()
         u, v = vertex
+
+        # Comprobacion de vecinos tras los muros
         for x, y in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
             neigh = (u + x, v + y)
             if neigh not in g.succs((u, v)) and neigh in distancias:
@@ -109,10 +107,16 @@ def backpointer(aristas: list, target: tuple) -> list:
     return camino
 
 
+def screen_output(wallbraker, p1, p2):
+    print(wallbraker[0][0], wallbraker[0][1], wallbraker[1][0], wallbraker[1][1])
+    print(len(p1))
+    print(len(p2))
+
+
 if __name__ == '__main__':
     if len(sys.argv) >= 2:
-        # tinit=datetime.now()
 
+        # Lectura de fichero
         lab = load_labyrinth("Ficheros/{}".format(sys.argv[1]))
         g = lab[4]
         origin = (0, 0)
@@ -120,28 +124,29 @@ if __name__ == '__main__':
         bomb = lab[1]
         exit = (lab[2] - 1, lab[3] - 1)
 
+        # Calculo de caminos sin pasar por la bomba
         origin_treasure = shortest_path(g, origin, treasure)
         treasure_exit = shortest_path(g, treasure, exit)
-        origin_bomb = shortest_path(g, origin, bomb)
 
+        # Calculo de caminos pasando por la bomba
+        origin_bomb = shortest_path(g, origin, bomb)
         distances = min_saltos(g, treasure)
         wallbraker = BFS_wallbraker(g, bomb, distances)
-        g._add_edge(wallbraker)
+        g.EdgeSet(g).add(wallbraker[0], wallbraker[1])
         bomb_treasure = shortest_path(g, bomb, treasure)
-        # tfin = datetime.now()
-        # tiempo=tfin-tinit
-        # print(tiempo)
 
-        if len(sys.argv) and sys.argv[2] =="-g":
+        # Concatenacion de caminos
+        p1 = origin_treasure[:-1] + treasure_exit
+        p2 = origin_bomb[:-1] + bomb_treasure[:-1] + treasure_exit
+
+        # Salida por pantalla
+        screen_output(wallbraker, p1, p2)
+
+        if len(sys.argv) and sys.argv[2] == "-g":
+
+            # Salida por pantalla gráfica
             random.seed(42)
-            graph = UndirectedGraph(E=...)
-            celda1 = (1, 3)  # celdas que comparten el muro a eliminar
-            celda2 = (2, 3)
-            p1 = [(0, 0), (1, 0), (1, 1), ...]  # camino obtenido sin usar la bomba
-            p2 = [(0, 0), (1, 0), (2, 0), ...]  # camino obtenido usando la bomba
-
-            # ----- Poner al final del programa principal ------------
-            lv = LabyrinthViewer(graph, canvas_width=1200, canvas_height=750, margin=10)
+            lv = LabyrinthViewer(g, canvas_width=2460, canvas_height=1000, margin=20)
             lv.add_marked_cell(treasure, 'yellow')
             lv.add_marked_cell(bomb, 'gray')
             lv.add_marked_cell(wallbraker[0], 'red', fillCell=True)
