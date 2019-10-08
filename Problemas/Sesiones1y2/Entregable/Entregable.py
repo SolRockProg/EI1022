@@ -131,7 +131,7 @@ if __name__ == '__main__':
         origin_bomb = shortest_path(g, origin, bomb)
         distances = min_saltos(g, treasure)
         wallbraker = BFS_wallbraker(g, bomb, distances)
-        g.EdgeSet(g).add(wallbraker[0], wallbraker[1])
+        UndirectedGraph.EdgeSet(g).add(wallbraker)
         bomb_treasure = shortest_path(g, bomb, treasure)
 
         # Concatenacion de caminos
