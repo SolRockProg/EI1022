@@ -109,8 +109,8 @@ def backpointer(aristas: list, target: tuple) -> List[Vertex]:
     return path
 
 
-def screen_output(brokenWall: Edge, p1: List[Vertex], p2: List[Vertex]):
-    print(brokenWall[0][0], brokenWall[0][1], brokenWall[1][0], brokenWall[1][1])
+def screen_output(broken_wall: Edge, p1: List[Vertex], p2: List[Vertex]):
+    print(broken_wall[0][0], broken_wall[0][1], broken_wall[1][0], broken_wall[1][1])
     print(len(p1)-1)  # distancia (nº aristas) = nº vertices-1
     print(len(p2)-1)
 
@@ -133,8 +133,8 @@ if __name__ == '__main__':
         # Calculo de caminos pasando por la bomba
         origin_bomb = shortest_path(g, origin, bomb)
         distances = min_distances(g, treasure)
-        brokenWall = BFS_wallbraker(g, bomb, distances)
-        UndirectedGraph.EdgeSet(g).add(brokenWall)
+        broken_wall = BFS_wallbraker(g, bomb, distances)
+        UndirectedGraph.EdgeSet(g).add(broken_wall)
         bomb_treasure = shortest_path(g, bomb, treasure)
         treasure_exit2 = shortest_path(g, treasure, exit)
 
@@ -143,7 +143,7 @@ if __name__ == '__main__':
         p2 = origin_bomb[:-1] + bomb_treasure[:-1] + treasure_exit2
 
         # Salida por pantalla
-        screen_output(brokenWall, p1, p2)
+        screen_output(broken_wall, p1, p2)
 
         if len(sys.argv) == 3 and sys.argv[2] == "-g":
             # Salida por pantalla gráfica
