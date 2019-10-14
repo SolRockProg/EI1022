@@ -136,10 +136,11 @@ if __name__ == '__main__':
         brokenWall = BFS_wallbraker(g, bomb, distances)
         UndirectedGraph.EdgeSet(g).add(brokenWall)
         bomb_treasure = shortest_path(g, bomb, treasure)
+        treasure_exit2 = shortest_path(g, treasure, exit)
 
         # Concatenacion de caminos
         p1 = origin_treasure[:-1] + treasure_exit
-        p2 = origin_bomb[:-1] + bomb_treasure[:-1] + treasure_exit
+        p2 = origin_bomb[:-1] + bomb_treasure[:-1] + treasure_exit2
 
         # Salida por pantalla
         screen_output(brokenWall, p1, p2)
