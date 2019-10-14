@@ -111,8 +111,8 @@ def backpointer(aristas: list, target: tuple) -> List[Vertex]:
 
 def screen_output(brokenWall: Edge, p1: List[Vertex], p2: List[Vertex]):
     print(brokenWall[0][0], brokenWall[0][1], brokenWall[1][0], brokenWall[1][1])
-    print(len(p1))
-    print(len(p2))
+    print(len(p1)-1)  # distancia (nº aristas) = nº vertices-1
+    print(len(p2)-1)
 
 
 if __name__ == '__main__':
@@ -145,7 +145,7 @@ if __name__ == '__main__':
         # Salida por pantalla
         screen_output(brokenWall, p1, p2)
 
-        if len(sys.argv) and sys.argv[2] == "-g":
+        if len(sys.argv) == 3 and sys.argv[2] == "-g":
             # Salida por pantalla gráfica
             random.seed(42)
             lv = LabyrinthViewer(g, canvas_width=2460, canvas_height=1000, margin=20)
