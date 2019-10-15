@@ -3,9 +3,6 @@ from algoritmia.datastructures.digraphs import UndirectedGraph
 from algoritmia.datastructures.queues import Fifo
 from typing import *
 import sys
-
-from algoritmia.utils import argmin
-
 from Problemas.Sesiones1y2.LabyrinthViewer import LabyrinthViewer
 
 Vertex = Tuple[int, int]
