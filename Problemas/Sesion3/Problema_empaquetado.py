@@ -20,16 +20,14 @@ def primero_que_quepa(W: List[int], C: int) -> List[int]:
     contenedores = {0: C}
     res = []
     for elem in W:
-        fin = False
-        for conte in contenedores.keys():
-            if contenedores[conte] >= elem:
-                contenedores[conte] -= elem
-                res.append(conte)
-                fin = True
-                break
-        if not fin:
+        if all(contenedores[i] < elem for i in contenedores.keys()):
+            res.append(len(contenedores))
             contenedores[len(contenedores)] = C - elem
-            res.append(len(contenedores) - 1)
+        else:
+            for i in contenedores.keys():
+                if contenedores[i] >= elem:
+                    res.append(i)
+                    contenedores[i] -= elem
     return res
 
 
