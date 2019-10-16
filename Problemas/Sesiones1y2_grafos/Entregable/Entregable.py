@@ -3,7 +3,7 @@ from algoritmia.datastructures.digraphs import UndirectedGraph
 from algoritmia.datastructures.queues import Fifo
 from typing import *
 import sys
-from Problemas.Sesiones1y2.LabyrinthViewer import LabyrinthViewer
+from Problemas.Sesiones1y2_grafos.LabyrinthViewer import LabyrinthViewer
 
 Vertex = Tuple[int, int]
 Edge = Tuple[Vertex, Vertex]
