@@ -1,9 +1,9 @@
 import random
 from Utils.labyrinthviewer import LabyrinthViewer
 from algoritmia.datastructures.digraphs import UndirectedGraph
-from Problemas.Sesiones1y2.Laberinto import create_labyrinth
+from Problemas.Sesiones1y2_grafos.Laberinto import create_labyrinth
 from algoritmia.datastructures.queues import Fifo
-from Problemas.Sesiones1y2.Problema2 import backpointer, path
+from Problemas.Sesiones1y2_grafos.Problema2 import backpointer, path
 
 
 # Camino más corto entre dos celdas de un laberinto modificado
