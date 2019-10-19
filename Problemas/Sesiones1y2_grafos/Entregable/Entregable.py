@@ -3,7 +3,7 @@ from algoritmia.datastructures.digraphs import UndirectedGraph
 from algoritmia.datastructures.queues import Fifo
 from typing import *
 import sys
-from Problemas.Sesiones1y2_grafos.LabyrinthViewer import LabyrinthViewer
+from Utils.LabyrinthViewer import LabyrinthViewer  # Introducir ruta pertinente a LaberynthViewer en caso de fallo
 
 Vertex = Tuple[int, int]
 Edge = Tuple[Vertex, Vertex]
@@ -145,7 +145,7 @@ if __name__ == '__main__':
         if len(sys.argv) == 3 and sys.argv[2] == "-g":
             # Salida por pantalla gráfica
             random.seed(42)
-            lv = LabyrinthViewer(g, canvas_width=2460, canvas_height=1000, margin=20)
+            lv = LabyrinthViewer(g, canvas_width=1024, canvas_height=512, margin=20)
             lv.add_marked_cell(treasure, 'yellow')
             lv.add_marked_cell(bomb, 'gray')
             lv.add_marked_cell(broken_wall[0], 'red', fillCell=True)
