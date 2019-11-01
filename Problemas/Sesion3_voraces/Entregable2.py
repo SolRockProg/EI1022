@@ -1,7 +1,9 @@
 from algoritmia.datastructures.digraphs import UndirectedGraph
 from typing import *
-
+import sys
 from algoritmia.utils import argmax
+
+from Problemas.Sesion3_voraces.graphcoloring2dviewer import GraphColoring2DViewer
 
 
 def load_labyrinth(filename: str):
@@ -52,7 +54,7 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
     dic = {v: -1 for v in g.V}
     n_colores = 0
     while len(vertices) > 0:
-        v = argmax(vertices, lambda x: (_vecinos_pintados(g, x, dic), len(g.succs(x)), x[0], x[1]))
+        v = argmax(vertices, fn=lambda x: (_vecinos_pintados(g, x, dic), len(g.succs(x)), x[0], x[1]))
         colores_vecinos = set()
         for vecino in g.succs(v):
             color = dic[vecino]
@@ -72,9 +74,11 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
 
 
 if __name__ == "__main__":
-    g = load_labyrinth(
-        r"C:\Users\carlo\PycharmProjects\EI1022git\Problemas\Sesion3_voraces\test-e2\graph-iberia.prob")
+    g = load_labyrinth(sys.argv[1])
     N, M = algoritmo2(g)
     print(N)
-    for v in M.keys():
+    for v in sorted(M.keys(),key=lambda x:(x[0],x[1])):
         print(v[0], v[1], M[v])
+
+    viewer = GraphColoring2DViewer(g, M, window_size=(1000, 400))
+    viewer.run()
