@@ -86,8 +86,8 @@ if __name__ == "__main__":
         print(N)
         for v in sorted(M.keys(),key=lambda x:(x[0],x[1])):
             print(v[0], v[1], M[v])
-
-        viewer = GraphColoring2DViewer(g, M, window_size=(1000, 400))
-        viewer.run()
+        if sys.argv[3] == "-g":
+            viewer = GraphColoring2DViewer(g, M, window_size=(1000, 400))
+            viewer.run()
     else:
         print("Uso: Entregable.py <-1 o -2> <path>")
