@@ -74,11 +74,20 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
 
 
 if __name__ == "__main__":
-    g = load_labyrinth(sys.argv[1])
-    N, M = algoritmo2(g)
-    print(N)
-    for v in sorted(M.keys(),key=lambda x:(x[0],x[1])):
-        print(v[0], v[1], M[v])
+    if len(sys.argv) >= 3:
+        g = load_labyrinth(sys.argv[2])
+        if sys.argv[1] == '-1':
+            N, M = algoritmo1(g)
+        elif sys.argv[1] == '-2':
+            N, M = algoritmo2(g)
+        else:
+            print(sys.argv[1],"no es un argumento válido se debe poner -1 o -2")
+            sys.exit(-1)
+        print(N)
+        for v in sorted(M.keys(),key=lambda x:(x[0],x[1])):
+            print(v[0], v[1], M[v])
 
-    viewer = GraphColoring2DViewer(g, M, window_size=(1000, 400))
-    viewer.run()
+        viewer = GraphColoring2DViewer(g, M, window_size=(1000, 400))
+        viewer.run()
+    else:
+        print("Uso: Entregable.py <-1 o -2> <path>")
