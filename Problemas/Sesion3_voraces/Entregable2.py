@@ -68,8 +68,6 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
             n_colores += 1
         #print(v,_vecinos_pintados(g, v, dic))
         vertices.remove(v)
-
-
     return n_colores, dic
 
 
