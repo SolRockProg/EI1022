@@ -21,7 +21,6 @@ def load_labyrinth(filename: str):
 
 def algoritmo1(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
     vertices = sorted(g.V, key=lambda x: (-len(g.succs(x)), -x[0], -x[1]))
-    colors = []
 
     dic = {v: -1 for v in g.V}
     n_colores = 0
@@ -31,13 +30,12 @@ def algoritmo1(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
             color = dic[vecino]
             if color != -1:
                 colores_vecinos.add(color)
-        for color in colors:
+        for color in range(n_colores):
             if color not in colores_vecinos:
                 dic[v] = color
                 break
         else:
             dic[v] = n_colores
-            colors.append(n_colores)
             n_colores += 1
     return n_colores, dic
 
@@ -50,7 +48,6 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
     vertices=set()
     for v in g.V:
         vertices.add(v)
-    colors = []
     dic = {v: -1 for v in g.V}
     n_colores = 0
     while len(vertices) > 0:
@@ -60,13 +57,12 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
             color = dic[vecino]
             if color != -1:
                 colores_vecinos.add(color)
-        for color in colors:
+        for color in range(n_colores):
             if color not in colores_vecinos:
                 dic[v] = color
                 break
         else:
             dic[v] = n_colores
-            colors.append(n_colores)
             n_colores += 1
         #print(v,_vecinos_pintados(g, v, dic))
         vertices.remove(v)
