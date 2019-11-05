@@ -6,11 +6,12 @@ from time import time
 
 def knapsack_solve(weights, values, capacity):
     class KnapsackPS(PartialSolutionWithOptimization):
-        def __init__(self, solution=(), suma_pesos=0, suma_valores=0):  # IMPLEMENTAR: Añade los parámetros que tú consideres
+        def __init__(self, solution=(), suma_pesos=0,
+                     suma_valores=0):  # IMPLEMENTAR: Añade los parámetros que tú consideres
             self.solution = solution
             self.n = len(solution)
             self.suma_pesos = suma_pesos
-            self.suma_valores=suma_valores
+            self.suma_valores = suma_valores
 
         def is_solution(self) -> bool:  # IMPLEMENTAR
             return self.n == len(values) and self.suma_pesos <= capacity
@@ -23,7 +24,8 @@ def knapsack_solve(weights, values, capacity):
                 return []
             yield KnapsackPS(self.solution + (0,), self.suma_pesos, self.suma_valores)
             if self.suma_pesos + weights[self.n] <= capacity:
-                yield KnapsackPS(self.solution + (1,), self.suma_pesos + weights[self.n], self.suma_valores+values[self.n])
+                yield KnapsackPS(self.solution + (1,), self.suma_pesos + weights[self.n],
+                                 self.suma_valores + values[self.n])
 
         def state(self) -> State:  # IMPLEMENTAR
             return self.n, self.suma_pesos
@@ -31,6 +33,43 @@ def knapsack_solve(weights, values, capacity):
         def f(self) -> Union[int, float]:  # IMPLEMENTAR
             return -self.suma_valores
 
+    initialPS = KnapsackPS()  # IMPLEMENTAR: Añade los parámetros que tú consideres
+    return BacktrackingOptSolver.solve(initialPS)
+
+
+def knapsack_solve2(weights, values, capacity):
+    class KnapsackPS(PartialSolutionWithOptimization):
+        def __init__(self, solution=()):  # IMPLEMENTAR: Añade los parámetros que tú consideres
+            self.solution = solution
+            self.n = len(solution)
+
+        def is_solution(self) -> bool:  # IMPLEMENTAR
+            return self.n == len(values) and suma_pesos <= capacity
+
+        def get_solution(self) -> Solution:  # IMPLEMENTAR
+            return self.solution
+
+        def successors(self) -> Iterable["KnapsackPS"]:  # IMPLEMENTAR
+            nonlocal suma_pesos
+            nonlocal suma_valores
+            if self.n >= len(values):
+                return []
+            yield KnapsackPS(self.solution + (0,))
+            if suma_pesos + weights[self.n] <= capacity:
+                suma_pesos += weights[self.n]
+                suma_valores += values[self.n]
+                yield KnapsackPS(self.solution + (1,))
+                suma_pesos -= weights[self.n]
+                suma_valores -= values[self.n]
+
+        def state(self) -> State:  # IMPLEMENTAR
+            return self.n, suma_pesos
+
+        def f(self) -> Union[int, float]:  # IMPLEMENTAR
+            return -suma_valores
+
+    suma_pesos = 0
+    suma_valores = 0
     initialPS = KnapsackPS()  # IMPLEMENTAR: Añade los parámetros que tú consideres
     return BacktrackingOptSolver.solve(initialPS)
 
