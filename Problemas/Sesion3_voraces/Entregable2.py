@@ -40,17 +40,12 @@ def algoritmo1(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
     return n_colores, dic
 
 
-def _vecinos_pintados(g: UndirectedGraph, v: Tuple[int, int], dic: dict):
-    return len([i for i in g.succs(v) if dic[i] != -1])
-
-
 def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
-    vertices = set(v for v in g.V)
     dic = {v: -1 for v in g.V}
     vecinos_coloreados = HeapMap(opt=max, data={k: 0 for k in g.V},
                                  redimMap=lambda k, v: (-v, -len(g.succs(k)), -k[0], -k[1]))
     n_colores = 0
-    while len(vertices) > 0:
+    while len(vecinos_coloreados) > 0:
         #v = argmax(vertices, fn=lambda x: (_vecinos_pintados(g, x, dic), len(g.succs(x)), x[0], x[1]))
         v = vecinos_coloreados.extract_opt()
         colores_vecinos = set()
@@ -68,7 +63,6 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
             dic[v] = n_colores
             n_colores += 1
         # print(v,_vecinos_pintados(g, v, dic))
-        vertices.remove(v)
     return n_colores, dic
 
 
