@@ -54,13 +54,13 @@ def knapsack_solve2(weights, values, capacity):
             nonlocal suma_valores
             if self.n >= len(values):
                 return []
-            yield KnapsackPS(self.solution + (0,))
             if suma_pesos + weights[self.n] <= capacity:
                 suma_pesos += weights[self.n]
                 suma_valores += values[self.n]
                 yield KnapsackPS(self.solution + (1,))
                 suma_pesos -= weights[self.n]
                 suma_valores -= values[self.n]
+            yield KnapsackPS(self.solution + (0,))
 
         def state(self) -> State:  # IMPLEMENTAR
             return self.n, suma_pesos
@@ -72,7 +72,6 @@ def knapsack_solve2(weights, values, capacity):
     suma_valores = 0
     initialPS = KnapsackPS()  # IMPLEMENTAR: Añade los parámetros que tú consideres
     return BacktrackingOptSolver.solve(initialPS)
-
 
 def create_knapsack_problem(num_objects: int) -> Tuple[Tuple[int, ...], Tuple[int, ...], int]:
     seed(42)
@@ -87,7 +86,7 @@ if __name__ == "__main__":
     # W, V, C = [1, 4, 2, 3], [2, 3, 4, 2], 7  # SOLUCIÓN: Weight=7,    Value=9
     W, V, C = create_knapsack_problem(30)  # SOLUCIÓN: Weight=6313, Value=11824
     start_time = time()
-    for sol in knapsack_solve(W, V, C):
+    for sol in knapsack_solve2(W, V, C):
         print("Weight: " + str(sum(v * W[i] for i, v in enumerate(sol))) + " Value: " + str(
             sum(v * V[i] for i, v in enumerate(sol))))
     # print(sol)

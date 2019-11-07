@@ -43,12 +43,9 @@ def algoritmo1(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
 def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
     dic = {v: -1 for v in g.V}
     vertices_nocoloreados = HeapMap(opt=max, data={k: (0, len(g.succs(k)), k[0], k[1]) for k in g.V})
-    sacados=False
     n_colores = 0
     while len(vertices_nocoloreados) > 0:
         v = vertices_nocoloreados.extract_opt()
-        if not sacados:
-            sacados=True
         colores_vecinos = set()
         for vecino in g.succs(v):
             color = dic[vecino]
