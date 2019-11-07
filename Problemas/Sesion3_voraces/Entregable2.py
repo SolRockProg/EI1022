@@ -7,7 +7,7 @@ from algoritmia.datastructures.prioritymaps import HeapMap
 from Problemas.Sesion3_voraces.graphcoloring2dviewer import GraphColoring2DViewer
 
 
-def load_labyrinth(filename: str):
+def load_graph(filename: str):
     def string_to_tuple(linea: str) -> Tuple:
         linea = linea.split()
         return (int(linea[0]), int(linea[1])), (int(linea[2]), int(linea[3]))
@@ -55,7 +55,6 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
             if color != -1:
                 colores_vecinos.add(color)
             else:
-                #pass
                 n,s,x,y=vertices_nocoloreados[vecino]
                 vertices_nocoloreados[vecino] = n+1,s,x,y
         for color in range(n_colores):
