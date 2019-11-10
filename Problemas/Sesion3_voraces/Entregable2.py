@@ -52,8 +52,8 @@ def algoritmo2(g: UndirectedGraph) -> Tuple[int, Dict[Tuple[int, int], int]]:
             if color != -1:
                 colores_vecinos.add(color)
             else:
-                n,s,x,y=vertices_nocoloreados[vecino]
-                vertices_nocoloreados[vecino] = n+1,s,x,y
+                n, s, x, y = vertices_nocoloreados[vecino]
+                vertices_nocoloreados[vecino] = n + 1, s, x, y
         for color in range(n_colores):
             if color not in colores_vecinos:
                 dic[v] = color
