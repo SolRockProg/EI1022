@@ -3,6 +3,7 @@ from typing import *
 import sys
 from time import time
 
+
 def leeFicheroPuzles(fichero):
     for linea in open(fichero, "r", encoding="utf-8"):
         yield linea.split()
@@ -77,11 +78,10 @@ def cryptoSolver(palabras: list):
             self.asignaciones = asignaciones
             self.vistas = len(self.asignaciones.keys())
             self.n_letras = len(letras)
-            self.auxdic=dict()
 
         def is_solution(self) -> bool:
             # print(self.n_letras , self.vistas ,factible(palabras, self.asignaciones))
-            return self.n_letras == self.vistas  # and factible(palabras, self.asignaciones)
+            return self.n_letras == self.vistas  # and self.factible(self.asignaciones)
 
         def get_solution(self) -> Solution:
             # print(self.asignaciones)
@@ -91,24 +91,24 @@ def cryptoSolver(palabras: list):
             if self.n_letras > self.vistas:
                 l = letras[self.vistas]
                 for i in range(inicio(l, palabras), 10):
-                    self.auxdic = dict(self.asignaciones)
-                    self.auxdic[l] = i
-                    if i not in self.asignaciones.values() and self.factible():
-                        yield CryptoAPS(self.auxdic)
+                    auxdic = dict(self.asignaciones)
+                    auxdic[l] = i
+                    if i not in self.asignaciones.values() and self.factible(auxdic):
+                        yield CryptoAPS(auxdic)
 
-        def factible(self) -> bool:
+        def factible(self, dic: dict) -> bool:
             guardado = 0
             for l in letras_ordenadas:
                 suma = 0
-                if l[-1] not in self.auxdic.keys():
+                if l[-1] not in dic.keys():
                     return True
                 for k in l[:-1]:
-                    if k not in self.auxdic.keys():
+                    if k not in dic.keys():
                         return True
-                    suma += self.auxdic[k]
+                    suma += dic[k]
                 suma += guardado
                 guardado = suma // 10
-                if suma % 10 != self.auxdic[l[-1]]:
+                if suma % 10 != dic[l[-1]]:
                     return False
             return True
 
@@ -124,7 +124,7 @@ def cryptoSolver(palabras: list):
 
 if __name__ == '__main__':
     # testen raras atar omitió 10 letras lol
-    ini=time()
+    ini = time()
     if len(sys.argv) > 2:
         p = sys.argv[1:]
         sols = list(cryptoSolver(p))
@@ -133,5 +133,5 @@ if __name__ == '__main__':
         for linea in leeFicheroPuzles(sys.argv[1]):
             sols = list(cryptoSolver(linea))
             muestraSolucion(sols, linea)
-    fin=time()
-    print(fin-ini)
+    fin = time()
+    print(fin - ini)
