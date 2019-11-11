@@ -1,4 +1,4 @@
-from bt_scheme import PartialSolution, State, Solution, BacktrackingSolver
+from Utils.bt_scheme import PartialSolution, State, Solution, BacktrackingSolver
 from typing import *
 import sys
 from time import time
