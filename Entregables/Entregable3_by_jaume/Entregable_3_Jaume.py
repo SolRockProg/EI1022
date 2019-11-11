@@ -1,7 +1,7 @@
 from bt_scheme import PartialSolution, State, Solution, BacktrackingSolver
 from typing import *
 import sys
-
+from time import time
 
 def leeFicheroPuzles(fichero):
     for linea in open(fichero, "r", encoding="utf-8"):
@@ -39,9 +39,9 @@ def muestraSolucion(sol: list, linea: list):
         print(cadena1, "{} soluciones".format(lon))
 
 
-def factible(palabras: list, valores: dict) -> bool:
-    #max_l = max([len(palabra) for palabra in palabras])
-    max_l=len(palabras[-1])
+def factible_old(palabras: list, valores: dict) -> bool:
+    # max_l = max([len(palabra) for palabra in palabras])
+    max_l = len(palabras[-1])
     guardado = 0
     for i in range(1, max_l + 1):
         letras = [palabra[-i] for palabra in palabras if (i - 1) < len(palabra)]
@@ -59,6 +59,11 @@ def factible(palabras: list, valores: dict) -> bool:
     return True
 
 
+def mat_letras(palabras: list):
+    max_l = len(palabras[-1])
+    return [[palabra[-i] for palabra in palabras if (i - 1) < len(palabra)] for i in range(1, max_l + 1)]
+
+
 def inicio(letra, palabras) -> int:
     for palabra in palabras:
         if letra == palabra[0]:
@@ -72,10 +77,11 @@ def cryptoSolver(palabras: list):
             self.asignaciones = asignaciones
             self.vistas = len(self.asignaciones.keys())
             self.n_letras = len(letras)
+            self.auxdic=dict()
 
         def is_solution(self) -> bool:
             # print(self.n_letras , self.vistas ,factible(palabras, self.asignaciones))
-            return self.n_letras == self.vistas #and factible(palabras, self.asignaciones)
+            return self.n_letras == self.vistas  # and factible(palabras, self.asignaciones)
 
         def get_solution(self) -> Solution:
             # print(self.asignaciones)
@@ -85,23 +91,40 @@ def cryptoSolver(palabras: list):
             if self.n_letras > self.vistas:
                 l = letras[self.vistas]
                 for i in range(inicio(l, palabras), 10):
-                    auxdic = dict(self.asignaciones)
-                    auxdic[l] = i
-                    if factible(palabras, auxdic) and i not in self.asignaciones.values():
-                        yield CryptoAPS(auxdic)
+                    self.auxdic = dict(self.asignaciones)
+                    self.auxdic[l] = i
+                    if i not in self.asignaciones.values() and self.factible():
+                        yield CryptoAPS(self.auxdic)
 
-    letras =[]
+        def factible(self) -> bool:
+            guardado = 0
+            for l in letras_ordenadas:
+                suma = 0
+                if l[-1] not in self.auxdic.keys():
+                    return True
+                for k in l[:-1]:
+                    if k not in self.auxdic.keys():
+                        return True
+                    suma += self.auxdic[k]
+                suma += guardado
+                guardado = suma // 10
+                if suma % 10 != self.auxdic[l[-1]]:
+                    return False
+            return True
+
+    letras = []
     for palabra in palabras:
         for letra in palabra:
             if letra not in letras:
                 letras.append(letra)
-    #letras=list({letra for palabra in palabras for letra in palabra})
+    letras_ordenadas = mat_letras(palabras)
     initialPS = CryptoAPS(dict())
     return BacktrackingSolver.solve(initialPS)
 
 
 if __name__ == '__main__':
-    #testen raras atar omitió 10 letras lol
+    # testen raras atar omitió 10 letras lol
+    ini=time()
     if len(sys.argv) > 2:
         p = sys.argv[1:]
         sols = list(cryptoSolver(p))
@@ -110,3 +133,5 @@ if __name__ == '__main__':
         for linea in leeFicheroPuzles(sys.argv[1]):
             sols = list(cryptoSolver(linea))
             muestraSolucion(sols, linea)
+    fin=time()
+    print(fin-ini)
