@@ -19,7 +19,7 @@ def binpacking(weights, capacity):
                         copia = deepcopy(self.contenedores)
                         copia[i] -= weights[self.n]
                         yield BinpackinPS(self.solution + (i,), copia)
-                copia=deepcopy(self.contenedores)
+                copia = deepcopy(self.contenedores)
                 copia.append(capacity - weights[self.n])
                 yield BinpackinPS(self.solution + (len(self.contenedores),), copia)
 
@@ -37,6 +37,7 @@ def binpacking(weights, capacity):
 
     initial_ps = BinpackinPS((), [])
     return BacktrackingOptSolver.solve(initial_ps)
+
 
 if __name__ == "__main__":
     W, C = [10, 20, 10, 70, 30, 60], 100
