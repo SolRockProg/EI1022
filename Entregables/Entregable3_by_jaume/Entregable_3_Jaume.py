@@ -40,7 +40,8 @@ def muestraSolucion(sol: list, linea: list):
 
 
 def factible(palabras: list, valores: dict) -> bool:
-    max_l = max([len(palabra) for palabra in palabras])
+    #max_l = max([len(palabra) for palabra in palabras])
+    max_l=len(palabras[-1])
     guardado = 0
     for i in range(1, max_l + 1):
         letras = [palabra[-i] for palabra in palabras if (i - 1) < len(palabra)]
