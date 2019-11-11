@@ -1,3 +1,5 @@
+import time
+
 from bt_scheme import PartialSolution, State, Solution, BacktrackingSolver
 from typing import *
 import sys
@@ -40,8 +42,7 @@ def muestraSolucion(sol: list, linea: list):
 
 
 def factible(palabras: list, valores: dict) -> bool:
-    #max_l = max([len(palabra) for palabra in palabras])
-    max_l=len(palabras[-1])
+    max_l = max_l=len(palabras[-1])
     guardado = 0
     for i in range(1, max_l + 1):
         letras = [palabra[-i] for palabra in palabras if (i - 1) < len(palabra)]
@@ -87,7 +88,7 @@ def cryptoSolver(palabras: list):
                 for i in range(inicio(l, palabras), 10):
                     auxdic = dict(self.asignaciones)
                     auxdic[l] = i
-                    if factible(palabras, auxdic) and i not in self.asignaciones.values():
+                    if i not in self.asignaciones.values() and factible(palabras, auxdic):
                         yield CryptoAPS(auxdic)
 
     letras =[]
@@ -101,6 +102,7 @@ def cryptoSolver(palabras: list):
 
 
 if __name__ == '__main__':
+    tiempo = time.time()
     #testen raras atar omitió 10 letras lol
     if len(sys.argv) > 2:
         p = sys.argv[1:]
@@ -110,3 +112,4 @@ if __name__ == '__main__':
         for linea in leeFicheroPuzles(sys.argv[1]):
             sols = list(cryptoSolver(linea))
             muestraSolucion(sols, linea)
+print(time.time()-tiempo)
