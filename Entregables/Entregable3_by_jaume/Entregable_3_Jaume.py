@@ -99,25 +99,33 @@ def cryptoSolver(palabras: list):
         def factible(self, dic: dict) -> bool:
             guardado = 0
             for l in letras_ordenadas:
-                suma = 0
-                if l[-1] not in dic.keys():
+                if set(l).issubset(dic.keys()):
+                    suma = 0
+                    for k in l[:-1]:
+                        suma += dic[k]
+                    suma += guardado
+                    guardado = suma // 10
+                    if l == letras_ordenadas[-1] and suma != dic[l[-1]]:
+                        return False
+                    elif suma % 10 != dic[l[-1]]:
+                        return False
+                else:
                     return True
-                for k in l[:-1]:
-                    if k not in dic.keys():
-                        return True
-                    suma += dic[k]
-                suma += guardado
-                guardado = suma // 10
-                if suma % 10 != dic[l[-1]]:
-                    return False
             return True
 
-    letras = []
-    for palabra in palabras:
-        for letra in palabra:
+    # letras = []
+    # for palabra in palabras:
+    #     for i in range(1,len(palabra)+1):
+    #         letra=palabra[-i]
+    #         if letra not in letras:
+    #             letras.append(letra)
+    letras_ordenadas = mat_letras(palabras)
+    letras=[]
+    for fila in letras_ordenadas:
+        for letra in fila:
             if letra not in letras:
                 letras.append(letra)
-    letras_ordenadas = mat_letras(palabras)
+
     initialPS = CryptoAPS(dict())
     return BacktrackingSolver.solve(initialPS)
 
