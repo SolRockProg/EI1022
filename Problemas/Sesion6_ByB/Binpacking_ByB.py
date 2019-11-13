@@ -1,7 +1,40 @@
+import math
+
 from Utils.bab_scheme import BabPartialSolution, BabSolver, Solution
 from random import seed, randint
 from itertools import groupby
 from typing import *
+from copy import deepcopy
+
+
+def primero_que_quepa(W: List[int], C: int, container_weights: List) -> int:
+    for elem in W:
+        for i, c in enumerate(container_weights):
+            if c >= elem:
+                container_weights[i] -= elem
+                break
+        else:
+            container_weights.append(C - elem)
+    return len(container_weights)
+
+
+def liquid_binpacking(W: List[int], C: int, container_weights: List) -> int:
+    suma_pesos = 0
+    contenedor_grande = 0
+    if len(W) > 0: contenedor_grande = max(W)
+    elem_min = min(container_weights)
+    suma_pesos_g=0
+    for elem in W:
+        if elem <= contenedor_grande:
+            suma_pesos += elem
+        else:
+            suma_pesos_g += elem
+    for i, available in enumerate(container_weights):
+        if available >= elem_min and suma_pesos > 0:
+            container_weights[i] = max(0, available - suma_pesos)
+            suma_pesos -= available
+    suma_resto=suma_pesos+suma_pesos_g
+    return len(container_weights) + math.ceil(suma_resto/C)
 
 
 def binpacking_solve(objects: List[int], capacity: int):
@@ -15,30 +48,33 @@ def binpacking_solve(objects: List[int], capacity: int):
 
         # TODO: IMPLEMENTAR - Relaja el problema. Trata los objetos que quedan como si fueran un líquido
         def calc_opt_bound(self) -> Union[int, float]:
-            return len(self.container_weights)  # AHORA ES DEMASIADO OPTIMISTA
+            nuevo = list(deepcopy(self.container_weights))
+            return liquid_binpacking(objects[self.n:], capacity, nuevo)  # AHORA ES DEMASIADO OPTIMISTA
 
         # TODO: IMPLEMENTAR - Algoritmo voraz. Completa la solución parcial actual con "En el primero en el que quepa"
         def calc_pes_bound(self) -> Union[int, float]:
-            return len(self.container_weights) + (len(objects) - self.n)  # AHORA ES DEMASIADO PESIMISTA
+            nuevo = list(deepcopy(self.container_weights))
+            return primero_que_quepa(objects[self.n:], capacity, nuevo)  # (len(objects) - self.n)   AHORA ES DEMASIADO PESIMISTA
 
         def is_solution(self) -> bool:
             return self.n == len(objects)
 
         def get_solution(self) -> Solution:
+
             return self.decisions
 
         def successors(self) -> Iterable["BinPackingBabPS"]:
             if self.n < len(objects):
                 object_weight = objects[self.n]
                 for num_container, container_weight in enumerate(self.container_weights):
-                    if container_weight + object_weight <= capacity:
+                    if container_weight >= object_weight:
                         list_cw = list(self.container_weights)  # copia tupla a lista
-                        list_cw[num_container] += object_weight
+                        list_cw[num_container] = capacity-object_weight
                         yield BinPackingBabPS(self.decisions + (num_container,), tuple(list_cw))
                 num_container = len(self.container_weights)
-                yield BinPackingBabPS(self.decisions + (num_container,), self.container_weights + (object_weight,))
+                yield BinPackingBabPS(self.decisions + (num_container,), self.container_weights + (capacity-object_weight,))
 
-    initial_ps = BinPackingBabPS((), ())
+    initial_ps = BinPackingBabPS((), tuple([capacity]))
     return BabSolver.solve_minimization(initial_ps)
 
 
@@ -69,9 +105,9 @@ def create_exact_binpacking_problem(num_containers, objects_per_container):
 # PROGRAMA PRINCIPAL -------------------------------------------------------
 if __name__ == "__main__":
     # Descomenta la instancia del problema que quieras resolver:
-    C, objs = 10, [6, 6, 3, 3, 2, 2, 2, 2, 2, 2]  # SOLUCIÓN ÓPTIMA: 3 contenedores
-    # C, objs = create_exact_binpacking_problem(6, 3)  # SOLUCIÓN ÓPTIMA: 6 contenedores
-    # C, objs = create_exact_binpacking_problem(12, 3) # SOLUCIÓN ÓPTIMA: 12 contenedores
+    #C, objs = 10, [6, 6, 3, 3, 2, 2, 2, 2, 2, 2]  # SOLUCIÓN ÓPTIMA: 3 contenedores
+    #C, objs = create_exact_binpacking_problem(6, 3)  # SOLUCIÓN ÓPTIMA: 6 contenedores
+    C, objs = create_exact_binpacking_problem(12, 3) # SOLUCIÓN ÓPTIMA: 12 contenedores
 
     print("PROBLEM TO SOLVE:")
     print("\tContainer capacity:", C)
