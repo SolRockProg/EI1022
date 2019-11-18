@@ -4,13 +4,13 @@ import sys
 from time import time
 
 
+
 def leeFicheroPuzles(fichero):
     for linea in open(fichero, "r", encoding="utf-8"):
         yield linea.split()
 
 def write_solution(solution, problema):
-    suma_string = "+".join(problema[:-1])
-    suma_string += " = " + problema[-1] + " => "
+    suma_string = "+".join(problema[:-1]) + " = " + problema[-1] + " => "
     if len(solution) == 1:
         sol = solution[0]
         suma_list = []
@@ -19,8 +19,7 @@ def write_solution(solution, problema):
             for letter in word:
                 string += str(sol[letter])
             suma_list.append(string)
-        suma_string += "+".join(suma_list[:-1])
-        suma_string += " = " + suma_list[-1]
+        suma_string += "+".join(suma_list[:-1]) + " = " + suma_list[-1]
         print(suma_string)
     else:
         print(suma_string + str(len(solution)) + " soluciones")
@@ -134,7 +133,9 @@ def cryptoSolver(palabras: list):
 if __name__ == '__main__':
     # testen raras atar omitió 10 letras lol
     ini = time()
-    if len(sys.argv) > 2:
+    if len(sys.argv) < 2:
+        print("Numero de argumentos incorrecto: entregable3.py <fichero | palabras>")
+    elif len(sys.argv) > 2:
         p = sys.argv[1:]
         sols = list(cryptoSolver(p))
         write_solution(sols, p)
