@@ -8,6 +8,22 @@ def leeFicheroPuzles(fichero):
     for linea in open(fichero, "r", encoding="utf-8"):
         yield linea.split()
 
+def write_solution(solution, problema):
+    suma_string = "+".join(problema[:-1])
+    suma_string += " = " + problema[-1] + " => "
+    if len(solution) == 1:
+        sol = solution[0]
+        suma_list = []
+        for word in problema:
+            string = ""
+            for letter in word:
+                string += str(sol[letter])
+            suma_list.append(string)
+        suma_string += "+".join(suma_list[:-1])
+        suma_string += " = " + suma_list[-1]
+        print(suma_string)
+    else:
+        print(suma_string + str(len(solution)) + " soluciones")
 
 def muestraSolucion(sol: list, linea: list):
     lon = len(sol)
@@ -72,6 +88,24 @@ def inicio(letra, palabras) -> int:
     return 0
 
 
+def factible(dic: dict, letras_ordenadas) -> bool:
+    guardado = 0
+    for l in letras_ordenadas:
+        if set(l).issubset(dic.keys()):
+            suma = 0
+            for k in l[:-1]:
+                suma += dic[k]
+            suma += guardado
+            guardado = suma // 10
+            if l == letras_ordenadas[-1] and suma != dic[l[-1]]:
+                return False
+            elif suma % 10 != dic[l[-1]]:
+                return False
+        else:
+            return True
+    return True
+
+
 def cryptoSolver(palabras: list):
     class CryptoAPS(PartialSolution):
         def __init__(self, asignaciones: dict):
@@ -93,26 +127,8 @@ def cryptoSolver(palabras: list):
                 for i in range(inicio(l, palabras), 10):
                     auxdic = dict(self.asignaciones)
                     auxdic[l] = i
-                    if i not in self.asignaciones.values() and self.factible(auxdic):
+                    if i not in self.asignaciones.values() and factible(auxdic, letras_ordenadas):
                         yield CryptoAPS(auxdic)
-
-        def factible(self, dic: dict) -> bool:
-            guardado = 0
-            for l in letras_ordenadas:
-                if set(l).issubset(dic.keys()):
-                    suma = 0
-                    for k in l[:-1]:
-                        suma += dic[k]
-                    suma += guardado
-                    guardado = suma // 10
-                    if l == letras_ordenadas[-1] and suma != dic[l[-1]]:
-                        return False
-                    elif suma % 10 != dic[l[-1]]:
-                        return False
-                else:
-                    return True
-            return True
-
     # letras = []
     # for palabra in palabras:
     #     for i in range(1,len(palabra)+1):
@@ -136,10 +152,10 @@ if __name__ == '__main__':
     if len(sys.argv) > 2:
         p = sys.argv[1:]
         sols = list(cryptoSolver(p))
-        muestraSolucion(sols, p)
+        write_solution(sols, p)
     else:
         for linea in leeFicheroPuzles(sys.argv[1]):
             sols = list(cryptoSolver(linea))
-            muestraSolucion(sols, linea)
+            write_solution(sols, linea)
     fin = time()
     print(fin - ini)
