@@ -56,29 +56,24 @@ def muestraSolucion(sol: list, linea: list):
         print(cadena1, "{} soluciones".format(lon))
 
 
-def factible_old(palabras: list, valores: dict) -> bool:
-    # max_l = max([len(palabra) for palabra in palabras])
-    max_l = len(palabras[-1])
-    guardado = 0
-    for i in range(1, max_l + 1):
-        letras = [palabra[-i] for palabra in palabras if (i - 1) < len(palabra)]
-        suma = 0
-        if letras[-1] not in valores.keys():
-            return True
-        for k in letras[:-1]:
-            if k not in valores.keys():
-                return True
-            suma += valores[k]
-        suma += guardado
-        guardado = suma // 10
-        if suma % 10 != valores[letras[-1]]:
-            return False
-    return True
-
-
 def mat_letras(palabras: list):
     max_l = len(palabras[-1])
-    return [[palabra[-i] for palabra in palabras if (i - 1) < len(palabra)] for i in range(1, max_l + 1)]
+    matriz=[]
+    letras= []
+    for i in range(1, max_l + 1):
+        fila = []
+        for palabra in palabras:
+            if (i - 1) < len(palabra):
+                letra=palabra[-i]
+                fila.append(letra)
+                if letra not in letras:
+                    letras.append(letra)
+        matriz.append(fila)
+    return matriz,letras
+
+
+
+    #return [[palabra[-i] ]
 
 
 def inicio(letra, palabras) -> int:
@@ -129,18 +124,8 @@ def cryptoSolver(palabras: list):
                     auxdic[l] = i
                     if i not in self.asignaciones.values() and factible(auxdic, letras_ordenadas):
                         yield CryptoAPS(auxdic)
-    # letras = []
-    # for palabra in palabras:
-    #     for i in range(1,len(palabra)+1):
-    #         letra=palabra[-i]
-    #         if letra not in letras:
-    #             letras.append(letra)
-    letras_ordenadas = mat_letras(palabras)
-    letras=[]
-    for fila in letras_ordenadas:
-        for letra in fila:
-            if letra not in letras:
-                letras.append(letra)
+
+    letras_ordenadas,letras = mat_letras(palabras)
 
     initialPS = CryptoAPS(dict())
     return BacktrackingSolver.solve(initialPS)
