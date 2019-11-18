@@ -4,10 +4,10 @@ import sys
 from time import time
 
 
-
 def leeFicheroPuzles(fichero):
     for linea in open(fichero, "r", encoding="utf-8"):
         yield linea.split()
+
 
 def write_solution(solution, problema):
     suma_string = "+".join(problema[:-1]) + " = " + problema[-1] + " => "
@@ -23,6 +23,7 @@ def write_solution(solution, problema):
         print(suma_string)
     else:
         print(suma_string + str(len(solution)) + " soluciones")
+
 
 def muestraSolucion(sol: list, linea: list):
     lon = len(sol)
@@ -57,22 +58,18 @@ def muestraSolucion(sol: list, linea: list):
 
 def mat_letras(palabras: list):
     max_l = len(palabras[-1])
-    matriz=[]
-    letras= []
+    matriz = []
+    letras = []
     for i in range(1, max_l + 1):
         fila = []
         for palabra in palabras:
             if (i - 1) < len(palabra):
-                letra=palabra[-i]
+                letra = palabra[-i]
                 fila.append(letra)
                 if letra not in letras:
                     letras.append(letra)
         matriz.append(fila)
-    return matriz,letras
-
-
-
-    #return [[palabra[-i] ]
+    return matriz, letras
 
 
 def inicio(letra, palabras) -> int:
@@ -124,7 +121,7 @@ def cryptoSolver(palabras: list):
                     if i not in self.asignaciones.values() and factible(auxdic, letras_ordenadas):
                         yield CryptoAPS(auxdic)
 
-    letras_ordenadas,letras = mat_letras(palabras)
+    letras_ordenadas, letras = mat_letras(palabras)
 
     initialPS = CryptoAPS(dict())
     return BacktrackingSolver.solve(initialPS)
