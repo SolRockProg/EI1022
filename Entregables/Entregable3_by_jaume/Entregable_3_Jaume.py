@@ -99,10 +99,11 @@ def factible(dic: dict, letras_ordenadas) -> bool:
 
 def cryptoSolver(palabras: list):
     class CryptoAPS(PartialSolution):
-        def __init__(self, asignaciones: dict):
+        def __init__(self, asignaciones: dict,numeros=()):
             self.asignaciones = asignaciones
             self.vistas = len(self.asignaciones.keys())
             self.n_letras = len(letras)
+            self.numeros=numeros
 
         def is_solution(self) -> bool:
             # print(self.n_letras , self.vistas ,factible(palabras, self.asignaciones))
@@ -117,10 +118,10 @@ def cryptoSolver(palabras: list):
                 l = letras[self.vistas]
                 auxdic = dict(self.asignaciones)
                 for i in range(inicio(l, palabras), 10):
-                    if i not in self.asignaciones.values():
+                    if i not in self.numeros:
                         auxdic[l] = i
                         if factible(auxdic, letras_ordenadas):
-                            yield CryptoAPS(auxdic)
+                            yield CryptoAPS(auxdic,self.numeros+(i,))
 
     letras_ordenadas, letras = mat_letras(palabras)
     initialPS = CryptoAPS(dict())
@@ -129,7 +130,7 @@ def cryptoSolver(palabras: list):
 
 if __name__ == '__main__':
     # testen raras atar omitió 10 letras lol
-    ini = time()
+    t=0
     if len(sys.argv) < 2:
         print("Numero de argumentos incorrecto: entregable3.py <fichero | palabras>")
     elif len(sys.argv) > 2:
@@ -138,7 +139,10 @@ if __name__ == '__main__':
         write_solution(sols, p)
     else:
         for linea in leeFicheroPuzles(sys.argv[1]):
+            ini = time()
             sols = list(cryptoSolver(linea))
+            fin = time()
+            t+=(fin - ini)
             write_solution(sols, linea)
-    fin = time()
-    print(fin - ini)
+
+    print(t)
