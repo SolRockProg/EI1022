@@ -110,19 +110,19 @@ def cryptoSolver(palabras: list):
 
         def get_solution(self) -> Solution:
             # print(self.asignaciones)
-            return self.asignaciones
+            return dict(self.asignaciones)
 
         def successors(self) -> Iterable["PartialSolution"]:
             if self.n_letras > self.vistas:
                 l = letras[self.vistas]
+                auxdic = dict(self.asignaciones)
                 for i in range(inicio(l, palabras), 10):
-                    auxdic = dict(self.asignaciones)
-                    auxdic[l] = i
-                    if i not in self.asignaciones.values() and factible(auxdic, letras_ordenadas):
-                        yield CryptoAPS(auxdic)
+                    if i not in self.asignaciones.values():
+                        auxdic[l] = i
+                        if factible(auxdic, letras_ordenadas):
+                            yield CryptoAPS(auxdic)
 
     letras_ordenadas, letras = mat_letras(palabras)
-
     initialPS = CryptoAPS(dict())
     return BacktrackingSolver.solve(initialPS)
 

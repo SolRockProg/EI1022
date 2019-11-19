@@ -46,8 +46,8 @@ def crypto_solver(data: Tuple[str, ...]) -> Iterable:
 
         def successors(self) -> Iterable["PartialSolution"]:
             if self.n < len(letters):
+                new_solution = deepcopy(self.solution)
                 for digit in get_set(letters[self.n], self.digitos_disponibles):
-                    new_solution = deepcopy(self.solution)
                     new_solution[letters[self.n]] = digit
                     if self._factible(new_solution):
                         yield CryptoAPS(new_solution, self.digitos_disponibles - {digit})
@@ -68,7 +68,6 @@ def crypto_solver(data: Tuple[str, ...]) -> Iterable:
                 elif fila == matrix[-1] and suma != newsolution[fila[-1]]:
                     return False
             return True
-    digitos_disponibles=set(i for i in range(10))
     matrix = do_matrix(data)
     letters = []
     for palabra in matrix:
