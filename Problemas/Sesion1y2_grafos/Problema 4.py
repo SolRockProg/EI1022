@@ -1,8 +1,8 @@
 from algoritmia.datastructures.digraphs import UndirectedGraph
 from algoritmia.datastructures.queues import Fifo
 from Utils.graph2dviewer import Graph2dViewer
-from Problemas.Sesiones1y2_grafos.Problema2 import DFS, backpointer
-from Problemas.Sesiones1y2_grafos.Problema3 import anchura
+from Problemas.Sesion1y2_grafos.Problema2 import DFS, backpointer
+from Problemas.Sesion1y2_grafos.Problema3 import anchura
 from typing import *
 from math import sqrt
 

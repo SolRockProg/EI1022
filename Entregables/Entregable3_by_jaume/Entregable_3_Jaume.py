@@ -25,37 +25,6 @@ def write_solution(solution, problema):
         print(suma_string + str(len(solution)) + " soluciones")
 
 
-def muestraSolucion(sol: list, linea: list):
-    lon = len(sol)
-    if lon == 1:
-        sol = sol[0]
-        cadena1 = ""
-        cadena2 = ""
-        for n, pal in enumerate(linea[:-1]):
-            for let in pal:
-                cadena2 += str(sol[let])
-            if n < len(linea) - 2:
-                cadena1 += pal + "+"
-                cadena2 += "+"
-            else:
-                cadena1 += pal
-
-        cadena1 += " = " + linea[-1] + " =>"
-        cadena2 += " = "
-        for let in linea[-1]:
-            cadena2 += str(sol[let])
-        print(cadena1, cadena2)
-    else:
-        cadena1 = ""
-        for n, pal in enumerate(linea[:-1]):
-            if n < len(linea) - 2:
-                cadena1 += pal + "+"
-            else:
-                cadena1 += pal
-        cadena1 += " = " + linea[-1] + " => "
-        print(cadena1, "{} soluciones".format(lon))
-
-
 def mat_letras(palabras: list):
     max_l = len(palabras[-1])
     matriz = []
@@ -144,5 +113,4 @@ if __name__ == '__main__':
             fin = time()
             t+=(fin - ini)
             write_solution(sols, linea)
-
     print(t)
