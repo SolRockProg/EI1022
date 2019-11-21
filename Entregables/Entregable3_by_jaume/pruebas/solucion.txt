@@ -159,6 +159,6 @@ pongan+grapa+grog = rocíen => 4 soluciones
 rascar+cruca+czar = reunió => 5 soluciones
 darían+andan+oída = olíais => 185386+86186+2318 = 273890
 chacal+ascos+asco = abulto => 2 soluciones
-germen+ganga+mera = titilé => 3 soluciones
+germen+ganga+mera = titilé => 3 solucione
 
 
