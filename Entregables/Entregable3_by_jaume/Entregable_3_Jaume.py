@@ -51,18 +51,20 @@ def inicio(letra, palabras) -> int:
 def factible(dic: dict, letras_ordenadas) -> bool:
     guardado = 0
     for l in letras_ordenadas:
-        if set(l).issubset(dic.keys()):
-            suma = 0
-            for k in l[:-1]:
-                suma += dic[k]
-            suma += guardado
-            guardado = suma // 10
-            if l == letras_ordenadas[-1] and suma != dic[l[-1]]:
-                return False
-            elif suma % 10 != dic[l[-1]]:
-                return False
-        else:
+        suma = 0
+        if l[-1] not in dic.keys():
             return True
+        for k in l[:-1]:
+            if k not in dic.keys():
+                return True
+            suma += dic[k]
+        suma += guardado
+        guardado = suma // 10
+        if l == letras_ordenadas[-1] and suma != dic[l[-1]]:
+            return False
+        elif suma % 10 != dic[l[-1]]:
+            return False
+
     return True
 
 
