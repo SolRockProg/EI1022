@@ -44,8 +44,6 @@ def nice_print(numbers, translator) -> string:
     coded += answer
     print(coded)
 
-
-
 def crypto_solver(words):
     #print(words)
     class CryptoAPS(PartialSolution):
