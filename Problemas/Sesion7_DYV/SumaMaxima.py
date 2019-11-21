@@ -8,7 +8,7 @@ def acumulator_calc(inicio, fin , vector,  paso=1):
         acumulator += vector[i]
         if acumulator > max_acum:
             max_acum = acumulator
-            indice = i+1
+            indice = i
     return indice, max_acum
 
 def smax(vector: List[int], b: int, e: int) -> (int, int, int):
@@ -32,5 +32,5 @@ if __name__ == "__main__":
     vector = [10, 10, 10]
     b, e, a = smax(vector, 0, len(vector))
     print("El maximo subvector encontrado es: ")
-    print(vector[b:e])
+    print(vector[b:e+1])
     print("con un valor de: " + str(a))
