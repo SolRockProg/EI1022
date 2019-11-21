@@ -44,6 +44,21 @@ def nice_print(numbers, translator) -> string:
     coded += answer
     print(coded)
 
+def write_solution(solution, problema):
+    suma_string = "+".join(problema[:-1]) + " = " + problema[-1] + " => "
+    if len(solution) == 1:
+        sol = solution[0]
+        suma_list = []
+        for word in problema:
+            string = ""
+            for letter in word:
+                string += str(sol[letter])
+            suma_list.append(string)
+        suma_string += "+".join(suma_list[:-1]) + " = " + suma_list[-1]
+        print(suma_string)
+    else:
+        print(suma_string + str(len(solution)) + " soluciones")
+
 def crypto_solver(words):
     #print(words)
     class CryptoAPS(PartialSolution):
@@ -80,11 +95,14 @@ def crypto_solver(words):
         def get_solution(self) -> Solution:
             return self.dict
 
-        def feasible(self, digit: int) -> bool:
+        def feasible(self, digit: int, run_call: bool) -> bool:
             #print("sum, digit, index, word index", self.sum, digit, self.char_index, self.word_index)
             known_col = self.word_index < self.n_words - 1
             extra_value = 0
 
+            add_digit = 0
+            if not run_call:
+                add_digit = digit
 
             for i in range(self.word_index + 1, self.n_words):
                 word = words[i]
@@ -100,7 +118,7 @@ def crypto_solver(words):
             if known_col:
                 #print("Esta ", words[-1][-self.char_index], "en dict:",
                 #      words[-1][-self.char_index] in self.dict.keys())
-                part = (self.sum + (digit + extra_value) * 10 ** (self.char_index - 1))
+                part = (self.sum + (add_digit + extra_value) * 10 ** (self.char_index - 1))
                 left = (part // (10 ** (self.char_index - 1))) % 10
                 letter_o = words[-1][-self.char_index]
                 right = self.dict[letter_o]
@@ -110,8 +128,8 @@ def crypto_solver(words):
                 #    extra_value, "total sum is ", self.sum, "plus mine ,",digit,"."
                 #    ". Part is ", part, ". That makes ",right, ", which is value of ", letter_o,
                 #    "but actually ", left, coherent)
-
-
+            #print("char", self.char_index)
+            right_c = (self.sum // (10 ** (self.char_index - 1))) % 10
 
             return  not (digit == 0 and self.char_index == len(words[self.word_index])) and (
                     self.word_index < self.n_words - 1 and (
@@ -126,7 +144,6 @@ def crypto_solver(words):
                 self.char_index += 1
             else:
                 self.word_index += 1
-
             if self.char_index <= len(words[self.word_index]):
                 return words[self.word_index][-self.char_index]
             else:
@@ -137,11 +154,15 @@ def crypto_solver(words):
             #print("Lo pillo en", self.word_index, self.char_index, self.current_letter)
             right_path = True
             default = True
+            #print("FUERA: ", self.current_letter)
+
             while self.current_letter is None or self.current_letter in self.dict.keys():
-                right_path = default or self.current_letter is None or self.feasible(self.dict[self.current_letter])
+                right_path = default or self.current_letter is None or self.feasible(self.dict[self.current_letter], True)
                 if not right_path:
                     break
+                #print(self.current_letter, "llamando a next,", self.char_index)
                 self.current_letter = self.next_letter()
+                #print(self.current_letter, "después de next,", self.char_index)
                 #print("E none?", self.current_letter is None)
                 default = False
                 if self.word_index != self.n_words - 1 and self.current_letter in self.dict.keys():
@@ -154,7 +175,7 @@ def crypto_solver(words):
             if right_path:
                 for digit in self.digits_left:
                     #print("try " + self.current_letter + " = " + str(digit))
-                    if self.feasible(digit):
+                    if self.feasible(digit, False):
                         sum = self.sum
                         #print("feasible")
                         copy_dict = deepcopy(self.dict)
@@ -192,4 +213,4 @@ if __name__ == "__main__":
             for riddle in load_riddle(sys.argv[1]):
                 sol = crypto_solver(riddle)
                 for solution in sol:
-                    nice_print(riddle, solution)
+                    write_solution(solution, riddle)
