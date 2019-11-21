@@ -68,9 +68,8 @@ def factible(dic: dict, letras_ordenadas) -> bool:
 
 def cryptoSolver(palabras: list):
     class CryptoAPS(PartialSolution):
-        def __init__(self, asignaciones: dict,numeros=()):
-            self.asignaciones = asignaciones
-            self.vistas = len(self.asignaciones.keys())
+        def __init__(self, numeros=()):
+            self.vistas = len(asignaciones.keys())
             self.n_letras = len(letras)
             self.numeros=numeros
 
@@ -80,20 +79,21 @@ def cryptoSolver(palabras: list):
 
         def get_solution(self) -> Solution:
             # print(self.asignaciones)
-            return dict(self.asignaciones)
+            return dict(asignaciones)
 
         def successors(self) -> Iterable["PartialSolution"]:
             if self.n_letras > self.vistas:
                 l = letras[self.vistas]
-                auxdic = dict(self.asignaciones)
                 for i in range(inicio(l, palabras), 10):
                     if i not in self.numeros:
-                        auxdic[l] = i
-                        if factible(auxdic, letras_ordenadas):
-                            yield CryptoAPS(auxdic,self.numeros+(i,))
+                        asignaciones[l] = i
+                        if factible(asignaciones, letras_ordenadas):
+                            yield CryptoAPS(self.numeros+(i,))
+                        del asignaciones[l]
 
+    asignaciones = {}
     letras_ordenadas, letras = mat_letras(palabras)
-    initialPS = CryptoAPS(dict())
+    initialPS = CryptoAPS()
     return BacktrackingSolver.solve(initialPS)
 
 
