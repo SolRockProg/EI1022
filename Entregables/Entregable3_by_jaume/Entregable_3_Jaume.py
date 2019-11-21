@@ -68,10 +68,9 @@ def factible(dic: dict, letras_ordenadas) -> bool:
 
 def cryptoSolver(palabras: list):
     class CryptoAPS(PartialSolution):
-        def __init__(self, numeros=()):
+        def __init__(self):
             self.vistas = len(asignaciones.keys())
             self.n_letras = len(letras)
-            self.numeros=numeros
 
         def is_solution(self) -> bool:
             # print(self.n_letras , self.vistas ,factible(palabras, self.asignaciones))
@@ -85,12 +84,14 @@ def cryptoSolver(palabras: list):
             if self.n_letras > self.vistas:
                 l = letras[self.vistas]
                 for i in range(inicio(l, palabras), 10):
-                    if i not in self.numeros:
+                    if i not in numeros:
                         asignaciones[l] = i
                         if factible(asignaciones, letras_ordenadas):
-                            yield CryptoAPS(self.numeros+(i,))
+                            numeros.add(i)
+                            yield CryptoAPS()
+                            numeros.remove(i)
                         del asignaciones[l]
-
+    numeros = set()
     asignaciones = {}
     letras_ordenadas, letras = mat_letras(palabras)
     initialPS = CryptoAPS()
