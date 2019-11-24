@@ -6,9 +6,9 @@ def acumulator_calc(inicio, fin , vector,  paso=1):
     indice = inicio
     for i in range(inicio, fin, paso):
         acumulator += vector[i]
-        if acumulator > max_acum:
+        if acumulator >= max_acum:
             max_acum = acumulator
-            indice = i
+            indice = i if paso == -1 else i+1
     return indice, max_acum
 
 def smax(vector: List[int], b: int, e: int) -> (int, int, int):
@@ -18,7 +18,7 @@ def smax(vector: List[int], b: int, e: int) -> (int, int, int):
     b_izq, e_izq, acumulation_izq = smax(vector, b, half)
     b_der, e_der, acumulation_der = smax(vector, half, e)
     indice_izq, max_acum_izq = acumulator_calc(half-1, b-1, vector, paso=-1)
-    indice_der, max_acum_der=acumulator_calc(half, e, vector)
+    indice_der, max_acum_der = acumulator_calc(half, e, vector)
     best = max(acumulation_der, acumulation_izq, max_acum_izq + max_acum_der)
     if best == acumulation_izq:
         return b_izq, e_izq, acumulation_izq
@@ -29,8 +29,8 @@ def smax(vector: List[int], b: int, e: int) -> (int, int, int):
 
 
 if __name__ == "__main__":
-    vector = [10, 10, 10]
+    vector = [10, 10]
     b, e, a = smax(vector, 0, len(vector))
     print("El maximo subvector encontrado es: ")
-    print(vector[b:e+1])
+    print(vector[b:e])
     print("con un valor de: " + str(a))
