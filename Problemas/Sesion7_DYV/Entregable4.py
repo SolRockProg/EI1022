@@ -8,7 +8,8 @@ def skyline(buildings: List[Tuple[int, ...]], b: int, e: int) -> List[int]:
         left, right = 0, 0
         h_left, h_right = 0, 0
         previous = 0
-
+        skyline_left.append(0)
+        skyline_right.append(0)
         while left < len(skyline_left)-1 and right < len(skyline_right)-1:
             if skyline_left[left] < skyline_right[right]:
                 h_left = skyline_left[left + 1]
@@ -33,6 +34,7 @@ def skyline(buildings: List[Tuple[int, ...]], b: int, e: int) -> List[int]:
             res.append(skyline_left[i])
         for i in range(right, len(skyline_right)):
             res.append(skyline_right[i])
+        res.pop()
         return res
 
     if e - b == 1:
