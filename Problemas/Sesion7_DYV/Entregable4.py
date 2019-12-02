@@ -1,5 +1,15 @@
 from Utils.skylineviewer import SkylineViewer
 from typing import *
+import sys
+
+
+def read_file(fichero):
+    res = []
+    for line in open(fichero, "r"):
+        values = line.split()
+        values = [int(a) for a in values]
+        res.append(tuple(values))
+    return res
 
 
 def skyline(buildings: List[Tuple[int, ...]], b: int, e: int) -> List[int]:
@@ -10,7 +20,7 @@ def skyline(buildings: List[Tuple[int, ...]], b: int, e: int) -> List[int]:
         previous = 0
         skyline_left.append(0)
         skyline_right.append(0)
-        while left < len(skyline_left)-1 and right < len(skyline_right)-1:
+        while left < len(skyline_left) - 1 and right < len(skyline_right) - 1:
             if skyline_left[left] < skyline_right[right]:
                 h_left = skyline_left[left + 1]
                 x = skyline_left[left]
@@ -45,10 +55,15 @@ def skyline(buildings: List[Tuple[int, ...]], b: int, e: int) -> List[int]:
 
 
 if __name__ == "__main__":
-    buildings = [(1, 10, 3), (2, 5, 5), (3, 6, 3), (4, 7, 5), (10, 10, 3), (9, 4, 6), (20, 8, 4), (22, 6, 6), (25, 10, 2)]
-    print(skyline(buildings, 0, len(buildings)))
-    skyline = skyline(buildings, 0, len(buildings))
-    viewer = SkylineViewer(skyline)
-    for b in buildings:
-        viewer.add_building(b)
-    viewer.run()
+    if len(sys.argv) >= 2:
+        buildings = [(1, 10, 3), (2, 5, 5), (3, 6, 3), (4, 7, 5), (10, 10, 3), (9, 4, 6), (20, 8, 4), (22, 6, 6),
+                     (25, 10, 2)]
+        sol = skyline(buildings, 0, len(buildings))
+        for s in sol:
+            print(s, end=" ")
+        if len(sys.argv) == 3 and sys.argv[2] == "-g":
+            skyline = skyline(buildings, 0, len(buildings))
+            viewer = SkylineViewer(skyline)
+            for b in buildings:
+                viewer.add_building(b)
+            viewer.run()
