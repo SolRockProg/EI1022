@@ -152,7 +152,6 @@ regale+revea+ella = inútil => 2 soluciones
 tirita+triar+fria = floreo => 390938+30980+4098 = 426016
 coloro+sosos+bolo = evocar => 387828+68686+1878 = 458392
 borrar+abres+eres = exhibo => 2 soluciones
-titile+tiene+seis = fausta => 2 soluciones
 posees+desee+elle = acudía => 4 soluciones
 idilia+alien+aina = gitano => 2 soluciones
 pongan+grapa+grog = rocíen => 4 soluciones
