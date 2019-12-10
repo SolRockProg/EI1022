@@ -18,7 +18,8 @@ def skyline(buildings: List[Tuple[int, ...]], b: int, e: int) -> List[int]:
         left, right = 0, 0
         h_left, h_right = 0, 0
         previous = 0
-        skyline_left.append(0)  #Se añade un 0 al final de las dos listas para así tener en cuenta que la altura del último punto es 0
+        skyline_left.append(
+            0)  # Se añade un 0 al final de las dos listas para así tener en cuenta que la altura del último punto es 0
         skyline_right.append(0)
         while left < len(skyline_left) - 1 and right < len(skyline_right) - 1:
             if skyline_left[left] < skyline_right[right]:
@@ -44,11 +45,14 @@ def skyline(buildings: List[Tuple[int, ...]], b: int, e: int) -> List[int]:
             res.append(skyline_left[i])
         for i in range(right, len(skyline_right)):
             res.append(skyline_right[i])
-        res.pop() #elimina el último elemento ya que será un 0
+        res.pop()  # elimina el último elemento ya que será un 0
         return res
 
     if e - b == 1:
         return [buildings[b][0], buildings[b][1], buildings[b][0] + buildings[b][2]]
+    if e - b == 2:
+        return combiner([buildings[b][0], buildings[b][1], buildings[b][0] + buildings[b][2]],
+                        [buildings[b + 1][0], buildings[b + 1][1], buildings[b + 1][0] + buildings[b + 1][2]])
     else:
         half = (b + e) // 2
         return combiner(skyline(buildings, b, half), skyline(buildings, half, e))
