@@ -48,9 +48,9 @@ def inicio(letra, palabras) -> int:
     return 0
 
 
-def factible(dic: dict, letras_ordenadas) -> bool:
+def factible(dic: dict, matriz_letras) -> bool:
     guardado = 0
-    for l in letras_ordenadas:
+    for l in matriz_letras:
         suma = 0
         if l[-1] not in dic.keys():
             return True
@@ -60,11 +60,10 @@ def factible(dic: dict, letras_ordenadas) -> bool:
             suma += dic[k]
         suma += guardado
         guardado = suma // 10
-        if l == letras_ordenadas[-1] and suma != dic[l[-1]]:
+        if l == matriz_letras[-1] and suma != dic[l[-1]]:
             return False
         elif suma % 10 != dic[l[-1]]:
             return False
-
     return True
 
 
@@ -85,7 +84,7 @@ def cryptoSolver(palabras: list):
                 for i in range(inicio(l, palabras), 10):
                     if i not in numeros:
                         asignaciones[l] = i
-                        if factible(asignaciones, letras_ordenadas):
+                        if factible(asignaciones, matriz_letras):
                             numeros.add(i)
                             yield CryptoAPS()
                             numeros.remove(i)
@@ -93,7 +92,7 @@ def cryptoSolver(palabras: list):
 
     numeros = set()
     asignaciones = {}
-    letras_ordenadas, letras = mat_letras(palabras)
+    matriz_letras, letras = mat_letras(palabras)
     n_letras = len(letras)
     initialPS = CryptoAPS()
     return BacktrackingSolver.solve(initialPS)
