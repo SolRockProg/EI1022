@@ -56,8 +56,7 @@ def skyline(buildings: List[Tuple[int, ...]], b: int, e: int) -> List[int]:
 
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
-        buildings = [(1, 10, 3), (2, 5, 5), (3, 6, 3), (4, 7, 5), (10, 10, 3), (9, 4, 6), (20, 8, 4), (22, 6, 6),
-                     (25, 10, 2)]
+        buildings = read_file(sys.argv[1])
         sol = skyline(buildings, 0, len(buildings))
         for s in sol:
             print(s, end=" ")

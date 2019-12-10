@@ -1,0 +1,2 @@
+from Utils.comprobador import *
+comparar_ficheros(r"C:\Users\carlo\PycharmProjects\EI1022git\Problemas\Sesion7_DYV\Entregable4\ciudad_100000_3.o", r"C:\Users\carlo\PycharmProjects\EI1022git\Problemas\Sesion7_DYV\Entregable4\solucion.txt")
