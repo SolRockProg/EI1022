@@ -1,8 +1,10 @@
 def sum_min(K, N):
     def L(k, n):
-        if k == 0: return n
         if (k, n) not in mem:
-            mem[k, n] = min((L(k - 1, n//d)+ d, (k - 1, n//d, d)) for d in range(1, n+1))
+            if k == 1:
+                mem[k, n] = (n, (k - 1, 1, n))
+            else:
+                mem[k, n] = min((L(k - 1, n // d) + d, (k - 1, n // d, d)) for d in range(1, n + 1) if n % d == 0)
         return mem[k, n][0]
 
     mem = {}
@@ -20,5 +22,5 @@ def sum_min(K, N):
 
 if __name__ == "__main__":
     N = 12
-    K = 4
+    K = 3
     print(sum_min(K, N))
