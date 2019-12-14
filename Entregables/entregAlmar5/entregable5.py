@@ -11,11 +11,12 @@ def knapsack(K, C, N, V, P):
 
         if (k, c, n) in mem:
             return mem[k, c, n][0]
-        p = P[n-1]
-        mem[k, c, n] = max(
-                    (V[n - 1] * d + _knapsack(k - d,  c - p * d, n - 1), (k - d,  c - p * d, n - 1), d)
-                    for d in (0, 1)
-                    )
+        else:
+            p = P[n-1]
+            mem[k, c, n] = max(
+                        (V[n - 1] * d + _knapsack(k - d,  c - p * d, n - 1), (k - d,  c - p * d, n - 1), d)
+                        for d in (0, 1)
+                        )
         return mem[k, c, n][0]
     mem = {}
     sol = []
