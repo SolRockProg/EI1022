@@ -2,14 +2,13 @@ from os import listdir
 
 
 def knapsack(K, C, N, V, P):
-    if C < min(P):
-        return "NO SOLUTION"
 
     def _knapsack(k, c, n):
-        if c < 0:
+        if c < 0 or n == 0 and k > 0:
             return - float("infinity")
-        if k == 0 or n == 0:
+        if k == 0:
             return 0
+
         if (k, c, n) in mem:
             return mem[k, c, n][0]
         p = P[n-1]
@@ -21,6 +20,8 @@ def knapsack(K, C, N, V, P):
     mem = {}
     sol = []
     value = _knapsack(K, C, N)
+    if value == - float("infinity"):
+        return "NO SOLUTION"
     k_prev, c_prev, n_prev = K, C, N
     while n_prev > 0 and k_prev > 0:
         data = mem[k_prev, c_prev, n_prev]
@@ -34,9 +35,9 @@ def knapsack(K, C, N, V, P):
 
 def reader():
     for file in listdir("test_entregable5"):
-        print(file)
         with open("test_entregable5/"+file, "r") as f:
             if file[-1] == 'i':
+                print(file)
                 K, C, N = (int(letter) for letter in f.readline().split())
                 V = [int(letter) for letter in f.readline().split()]
                 P = [int(letter) for letter in f.readline().split()]
@@ -45,13 +46,7 @@ def reader():
                 yield False, f.read()
 
 
-
 if __name__ == "__main__":
-#    K = 3
-#    C = 1975
-#  N = 10
-#   V = [654, 114, 25, 759, 281, 250, 228, 142, 754, 104]
-#   P = [661, 106, 33, 762, 272, 240, 220, 138, 751, 110]
 
     for file in reader():
         if file[0]:
