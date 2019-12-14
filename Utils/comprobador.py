@@ -6,7 +6,7 @@ import glob, os
 from Problemas.Sesion8y9_PDinamica.Entregable.Entregable5 import *
 
 
-def comparar_ficheros(file1: str, file2: str):
+def compare_solutions(file1: str, file2: str):
     vector_lineas = []
     with open(file1, encoding="utf-8") as f:
         for line in f:
@@ -37,7 +37,7 @@ def muchos_ficheros(f, path):
     for input_file in glob.glob("*.i"):
         os.system(f + " " + input_file + "> solucion.txt")
         output_file = input_file[:-1] + "o"
-        comparar_ficheros("solucion.txt", output_file)
+        compare_solutions("solucion.txt", output_file)
 
 
 if __name__ == "__main__":
