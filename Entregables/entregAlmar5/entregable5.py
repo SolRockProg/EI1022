@@ -53,12 +53,15 @@ if __name__ == "__main__":
             print("ANSWER: ")
             K, C, N, V, P = file[1:]
             ans = knapsack(K, C, N, V, P)
-            print(ans[0])
-            print(ans[1])
-            objects = ""
-            for elem in ans[2]:
-                objects += str(elem) + " "
-            print(objects)
+            if ans == "NO SOLUTION":
+                print(ans)
+            else:
+                print(ans[0])
+                print(ans[1])
+                objects = ""
+                for elem in ans[2]:
+                    objects += str(elem) + " "
+                print(objects)
         else:
             print("EXPECTED: ")
             print(file[1])
