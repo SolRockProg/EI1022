@@ -27,22 +27,24 @@ def n_letters(words) -> int:
     return how_many
 
 
-def nice_print(numbers, translator) -> string:
+def nice_print(numbers, translator, n_sol) -> string:
     coded = ""
     answer = ""
     for number in numbers[:-2]:
         coded += number + "+"
+    coded += numbers[-2] + " = " + numbers[-1] + " => "
+    if n_sol == 1:
         for char in number:
             answer += str(translator[char])
         answer += "+"
-    coded += numbers[-2] + " = " + numbers[-1] + " => "
-    for char in numbers[-2]:
-        answer += str(translator[char])
-    answer += " = "
-    for char in numbers[-1]:
-        answer += str(translator[char])
-    coded += answer
+        for char in numbers[-2]:
+            answer += str(translator[char])
+        answer += " = "
+    else:
+        answer += str(n_sol) + " soluciones"
     print(coded)
+
+
 
 def write_solution(solution, problema):
     suma_string = "+".join(problema[:-1]) + " = " + problema[-1] + " => "
@@ -207,10 +209,18 @@ if __name__ == "__main__":
             words = sys.argv[1:]
             sol = crypto_solver(words)
             for solution in sol:
-                nice_print(words, solution)
+                nice_print(words, solution, 1)
 
         else:
             for riddle in load_riddle(sys.argv[1]):
                 sol = crypto_solver(riddle)
+                n_sol = 0
+                single = True
                 for solution in sol:
-                    write_solution(solution, riddle)
+                    n_sol += 1
+                    if n_sol > 1:
+                        single = False
+                if single:
+                    nice_print(riddle, solution, 1)
+                else:
+                    nice_print(riddle, solution, n_sol)
