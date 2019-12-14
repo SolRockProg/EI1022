@@ -49,13 +49,3 @@ if __name__ == "__main__":
             print("NO SOLUTION")
     else:
         print("número de parametros incorrecto")
-
-def comprobar(file):
-    param, V, P = read_file(file)
-    val, pes, ind = packing(*param, V, P)
-    if val != -float("infinity"):
-        print(val)
-        print(pes)
-        print(*ind, sep=" ")
-    else:
-        print("NO SOLUTION")
