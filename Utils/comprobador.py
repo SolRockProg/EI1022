@@ -1,9 +1,5 @@
-import contextlib
+import glob
 import os
-import sys
-from typing import *
-import glob, os
-from Problemas.Sesion8y9_PDinamica.Entregable.Entregable5 import *
 
 
 def compare_solutions(file1: str, file2: str):
