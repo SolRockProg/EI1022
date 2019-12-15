@@ -31,11 +31,11 @@ def compare_solutions(file1: str, file2: str):
 def muchos_ficheros(f, path):
     os.chdir(path)
     for input_file in glob.glob("*.i"):
-        os.system(f + " " + input_file + "> solucion.txt")
+        os.system(f + " " + input_file + "> solucion2.txt")
         output_file = input_file[:-1] + "o"
-        compare_solutions("solucion.txt", output_file)
+        compare_solutions("solucion2.txt", output_file)
 
 
 if __name__ == "__main__":
-    muchos_ficheros("Entregable5.py",
-                    r"C:\Users\carlo\PycharmProjects\EI1022git\Problemas\Sesion8y9_PDinamica\Entregable")
+    muchos_ficheros("Entregable4.py",
+                    r"C:\Users\carlo\PycharmProjects\EI1022git\Problemas\Sesion7_DYV\Entregable4")
