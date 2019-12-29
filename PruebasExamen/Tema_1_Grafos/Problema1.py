@@ -1,28 +1,28 @@
 import random
 
-from algoritmia.datastructures.mergefindsets import MergeFindSet
+from algoritmia.datastructures.mergefindsets import *
 from algoritmia.datastructures.digraphs import UndirectedGraph
+
 from Utils.LabyrinthViewer import LabyrinthViewer
 
 
 def create_labyrinth(rows, cols, n=0):
-    # paso1
-    vertices = [(fil, col) for fil in range(rows) for col in range(cols)]
+    vertexes = [(fil, col) for fil in range(rows) for col in range(cols)]
     mfs = MergeFindSet()
-    for v in vertices:
+    for v in vertexes:
         mfs.add(v)
     edges = []
-    for (r, c) in vertices:
-        if c + 1 < cols:
-            edges.append(((r, c), (r, c + 1)))
-        if r + 1 < rows:
-            edges.append(((r, c), (r + 1, c)))
+    for fil, col in vertexes:
+        if fil + 1 < rows:
+            edges.append(((fil, col), (fil + 1, col)))
+        if col + 1 < cols:
+            edges.append(((fil, col), (fil, col + 1)))
     random.shuffle(edges)
     corridors = []
-    for (u, v) in edges:
+    for u, v in edges:
         if mfs.find(u) != mfs.find(v):
-            corridors.append((u, v))
             mfs.merge(u, v)
+            corridors.append((u, v))
         elif n > 0:
             corridors.append((u, v))
             n -= 1

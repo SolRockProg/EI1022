@@ -37,5 +37,5 @@ def muchos_ficheros(f, path):
 
 
 if __name__ == "__main__":
-    muchos_ficheros("Entregable4.py",
-                    r"C:\Users\carlo\PycharmProjects\EI1022git\Problemas\Sesion7_DYV\Entregable4")
+    muchos_ficheros("Entregable5.py",
+                    r"C:\Users\carlo\PycharmProjects\EI1022git\Problemas\Sesion8y9_PDinamica\Entregable")

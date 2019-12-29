@@ -1,5 +1,5 @@
 import random
-from Utils.labyrinthviewer import LabyrinthViewer
+from Utils.LabyrinthViewer import *
 from algoritmia.datastructures.digraphs import UndirectedGraph
 from Problemas.Sesion1y2_grafos.Laberinto import create_labyrinth
 from algoritmia.datastructures.queues import Fifo

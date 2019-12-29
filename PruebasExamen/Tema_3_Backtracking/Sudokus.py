@@ -1,7 +1,3 @@
-from typing import List
-
-from algoritmia.utils import argmax, argmin
-
 from Utils.bt_scheme import PartialSolution, BacktrackingSolver
 from typing import *
 from copy import deepcopy
@@ -18,13 +14,8 @@ def primera_vacia(s: Sudoku) -> Optional[Position]:
     return None  # si el Sudoku ya está completo
 
 
-def posiciones_vacias(s: Sudoku) -> set:
-    vacias = set()
-    for fila in range(9):
-        for col in range(9):
-            if s[fila][col] == 0:
-                vacias.add((fila, col))
-    return vacias  # si el Sudoku ya está completo
+def posiciones_vacias(sudoku: Sudoku) -> set:
+    pass
 
 
 def posibles_en(s: Sudoku, fila: int, col: int) -> Set[int]:
@@ -46,31 +37,31 @@ def pretty_print(s: Sudoku):
             print("---+---+---")
 
 
-class SudokuPS(PartialSolution):
+def sudoku_solver(sudoku):
+    class SudokuPS(PartialSolution):
+        def __init__(self, sudoku: Sudoku):
+            self.s = sudoku
 
-    def __init__(self, sudoku: Sudoku, vacias: set):
-        self.s = sudoku
-        self.vacias = vacias
+        # Indica si la sol. parcial es ya una solución factible (completa)
+        def is_solution(self) -> bool:
+            return primera_vacia(self.s) is None
 
-    # Indica si la sol. parcial es ya una solución factible (completa)
-    def is_solution(self) -> bool:
-        return primera_vacia(self.s) is None
+        # Si es sol. factible, la devuelve. Si no lanza excepción
+        def get_solution(self) -> Sudoku:
+            return self.s
 
-    # Si es sol. factible, la devuelve. Si no lanza excepción
-    def get_solution(self) -> Sudoku:
-        return self.s
+        # Devuelve la lista de sus sol. parciales sucesoras
+        def successors(self) -> Iterable["SudokuPS"]:
+            vacia = primera_vacia(self.s)
+            if vacia is not None:
+                f, c = vacia
+                for posible in posibles_en(self.s, f, c):
+                    nuevo_sudoku = deepcopy(self.s)
+                    nuevo_sudoku[f][c] = posible
+                    yield SudokuPS(nuevo_sudoku)
 
-    # Devuelve la lista de sus sol. parciales sucesoras
-    def successors(self) -> Iterable["SudokuPS"]:
-        pm = argmin(self.vacias, lambda x: len(posibles_en(self.s, x[0], x[1])))
-        if pm is None: return []
-        t, c = pm
-        m2 = deepcopy(self.s)
-        for num in posibles_en(self.s, t, c):
-            m2[t][c] = num
-            vacias_copia = set(self.vacias)
-            vacias_copia.remove((t, c))
-            yield SudokuPS(m2, vacias_copia)
+    initial_PS = SudokuPS(sudoku)
+    return BacktrackingSolver.solve(initial_PS)
 
 
 # PROGRAMA PRINCIPAL -------------------------------------------------------
@@ -81,15 +72,14 @@ if __name__ == "__main__":
 
     # El sudoku más difícil del mundo
     # m_sudoku = [[8, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 6, 0, 0, 0, 0, 0], [0, 7, 0, 0, 9, 0, 2, 0, 0],
-    #           [0, 5, 0, 0, 0, 7, 0, 0, 0], [0, 0, 0, 0, 4, 5, 7, 0, 0], [0, 0, 0, 1, 0, 0, 0, 3, 0],
-    #          [0, 0, 1, 0, 0, 0, 0, 6, 8], [0, 0, 8, 5, 0, 0, 0, 1, 0], [0, 9, 0, 0, 0, 0, 4, 0, 0]]
+    #            [0, 5, 0, 0, 0, 7, 0, 0, 0], [0, 0, 0, 0, 4, 5, 7, 0, 0], [0, 0, 0, 1, 0, 0, 0, 3, 0],
+    #            [0, 0, 1, 0, 0, 0, 0, 6, 8], [0, 0, 8, 5, 0, 0, 0, 1, 0], [0, 9, 0, 0, 0, 0, 4, 0, 0]]
 
     print("Original:")
     pretty_print(m_sudoku)
     print("\nSoluciones:")
     # Mostrar todas las soluciones
     # IMPLEMENTAR utilizando SudokuPS y BacktrackingSolver
-
-    for solution in BacktrackingSolver.solve(SudokuPS(m_sudoku, posiciones_vacias(m_sudoku))):
-        pretty_print(solution)
+    for solution in sudoku_solver(m_sudoku):
+         pretty_print(solution)
     print("<TERMINDADO>")  # Espera a ver este mensaje para saber que el programa ha terminado

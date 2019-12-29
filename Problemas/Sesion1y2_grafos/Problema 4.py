@@ -44,8 +44,8 @@ def horse_graph(rows: int, cols: int) -> UndirectedGraph:
 
 
 if __name__ == "__main__":
-    cols = 3
-    rows = 3
+    cols = 4
+    rows = 4
     g = horse_graph(rows, cols)
     source = (0, 0)
     print(mod_anchura(g, source))
