@@ -29,7 +29,7 @@ def smax(vector: List[int], b: int, e: int) -> (int, int, int):
 
 
 if __name__ == "__main__":
-    vector = [10, 10]
+    vector = [10, 10, 30, -40]
     b, e, a = smax(vector, 0, len(vector))
     print("El maximo subvector encontrado es: ")
     print(vector[b:e])
