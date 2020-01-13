@@ -2,7 +2,7 @@ from typing import *
 
 
 def p_mochila(pesos: List[int], precios: List[int], W: int) -> List[float]:
-    indexes = sorted(range(len(precios)), key=lambda x: pesos[x] / precios[x])
+    indexes = sorted(range(len(precios)), key=lambda x: -precios[x] / pesos[x])
     res = [0] * len(pesos)
     for i in indexes:
         res[i] = min(1, W / pesos[i])

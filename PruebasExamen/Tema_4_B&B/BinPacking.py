@@ -11,21 +11,21 @@ def liquid_binpacking(container_weights, capacity, objects):
     suma_pesos = 0
     min_rellenado = 0
     min_objeto = 0
-    suma_descartados=0
+    suma_descartados = 0
     if len(container_weights) > 0: min_rellenado = min(container_weights)
     if len(objects) > 0: min_objeto = min(objects)
     for object in objects:
         if capacity - min_rellenado >= object:
             suma_pesos += object
         else:
-            suma_descartados+=object
+            suma_descartados += object
     for container_space in container_weights:
         if capacity - container_space >= min_objeto:
             suma_pesos -= min(capacity - container_space, suma_pesos)
         if suma_pesos == 0:
             break
     else:
-        add = math.ceil((suma_pesos+suma_descartados) / capacity)
+        add = math.ceil((suma_pesos + suma_descartados) / capacity)
     return len(container_weights) + add
 
 
@@ -51,11 +51,13 @@ def binpacking_solve(objects: List[int], capacity: int):
 
         # TODO: IMPLEMENTAR - Relaja el problema. Trata los objetos que quedan como si fueran un líquido
         def calc_opt_bound(self) -> Union[int, float]:
-            return liquid_binpacking(list(self.container_weights), capacity, objects[self.n:])  # AHORA ES DEMASIADO OPTIMISTA
+            return liquid_binpacking(list(self.container_weights), capacity,
+                                     objects[self.n:])  # AHORA ES DEMASIADO OPTIMISTA
 
         # TODO: IMPLEMENTAR - Algoritmo voraz. Completa la solución parcial actual con "En el primero en el que quepa"
         def calc_pes_bound(self) -> Union[int, float]:
-            return binpacking_hard(list(self.container_weights), capacity, objects[self.n:])  # AHORA ES DEMASIADO PESIMISTA
+            return binpacking_hard(list(self.container_weights), capacity,
+                                   objects[self.n:])  # AHORA ES DEMASIADO PESIMISTA
 
         def is_solution(self) -> bool:
             return self.n == len(objects)
@@ -107,7 +109,7 @@ if __name__ == "__main__":
     # Descomenta la instancia del problema que quieras resolver:
     # C, objs = 10, [6, 6, 3, 3, 2, 2, 2, 2, 2, 2]  # SOLUCIÓN ÓPTIMA: 3 contenedores
     # C, objs = create_exact_binpacking_problem(6, 3)  # SOLUCIÓN ÓPTIMA: 6 contenedores
-    C, objs = create_exact_binpacking_problem(12, 3) # SOLUCIÓN ÓPTIMA: 12 contenedores
+    C, objs = create_exact_binpacking_problem(12, 3)  # SOLUCIÓN ÓPTIMA: 12 contenedores
 
     print("PROBLEM TO SOLVE:")
     print("\tContainer capacity:", C)
