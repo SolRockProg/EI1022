@@ -3,7 +3,10 @@ def suma_producto_maximo(listas, S):
         if n == 0 and s == 0: return 1
         if n == 0: return -float("infinity")
         if (n, s) not in mem:
-            mem[n, s] = max((L(n - 1, s - d) * d, (n - 1, s - d, d)) for d in listas[n - 1] if s >= d)
+            mem[n, s] = float("-inf"), ()
+            for d in listas[n - 1]:
+                if s >= d:
+                    mem[n, s] = max(mem[n, s], (L(n - 1, s - d) * d, (n - 1, s - d, d)))
         return mem[n, s][0]
 
     mem = {}
@@ -19,6 +22,6 @@ def suma_producto_maximo(listas, S):
 
 
 if __name__ == "__main__":
-    S = 16
+    S = 14
     lista = [[4, 2], [10, 6], [8, 2]]
     print(suma_producto_maximo(lista, S))
