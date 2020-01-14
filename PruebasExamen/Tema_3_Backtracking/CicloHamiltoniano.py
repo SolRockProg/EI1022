@@ -12,7 +12,7 @@ def hamiltoniancycle_solver(g: UndirectedGraph) -> Solution:
             self.used = used
 
         def is_solution(self) -> bool:
-            return self.n == len(g.V)
+            return self.n == len(g.V) and self.solution[0] in g.succs(self.solution[-1])
 
         def get_solution(self) -> Solution:
             return self.solution
