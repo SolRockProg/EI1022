@@ -61,8 +61,9 @@ if __name__ == "__main__":
     if len(sys.argv) >= 2:
         buildings = read_file(sys.argv[1])
         sol = skyline(buildings, 0, len(buildings))
-        for s in sol:
-            print(s, end=" ")
+        for i in range(0, len(sol)-1):
+            print(sol[i], end=" ")
+        print(sol[-1])
         if len(sys.argv) == 3 and sys.argv[2] == "-g":
             skyline = skyline(buildings, 0, len(buildings))
             viewer = SkylineViewer(skyline)

@@ -1,3 +1,3 @@
+from algoritmia.utils import argmax
 
-lista = sorted(range(10), key=lambda x: -x)
-print(lista)
+print(argmax([1,2,3,4], lambda x: x))
